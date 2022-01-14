@@ -6,6 +6,7 @@ export const TestTitle = () => {
     return (
         <div onClick={() => dispatch(getGames())}>
             TEST
+            TEST FOR COMMIT
         </div>
     )
 }
