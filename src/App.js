@@ -1,12 +1,15 @@
 import React from 'react';
-import {TestTitle} from "./components/TestTitle";
+import { ChakraProvider } from '@chakra-ui/react';
+import { GamesList } from './components/GamesList/GamesList';
 
 function App() {
-    return (
-        <div className="App">
-            <TestTitle/>
-        </div>
-    );
+  return (
+    <ChakraProvider>
+      <div className="App">
+        <GamesList />
+      </div>
+    </ChakraProvider>
+  );
 }
 
 export default App;
