@@ -1,18 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { getGames } from '../../store/main/mainSlice';
 import { Poster } from './GamesList.styled';
+import { Link } from 'react-router-dom';
+
 
 export const GamesList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getGames(1));
+    dispatch(getGames(page));
   }, []);
 
-  const results = useSelector((state) => state.games.gamesData?.results);
-  const games = useSelector((state) => state.games);
+  const results = useSelector(state => state.games?.gamesData.results);
+  const games = useSelector(state => state.games);
   console.log(games);
   let page = useSelector(state => state.games?.currentPage);
 
@@ -21,10 +23,10 @@ export const GamesList = () => {
     dispatch(getGames(page));
     console.log(page);
   };
+
   const handleLoadPreviousPage = () => {
     if (page > 1) {
       page--;
-    } else {
       dispatch(getGames(page));
       console.log(page);
       console.log('Prev page');
@@ -41,6 +43,7 @@ export const GamesList = () => {
         >
           {results.map((item) => {
             return (
+
               <Box
                 key={item.name}
                 m={'1vw'}
@@ -49,11 +52,14 @@ export const GamesList = () => {
                 overflow={'hidden'}
                 border={'solid 1px white'}
               >
-                <Poster background={item.background_image} />
-                <Box textAlign={'center'} py={'1vw'}>
-                  {item.name}
-                </Box>
+                <Link to="/gamecard">
+                  <Poster background={item.background_image} />
+                  <Box textAlign={'center'} py={'1vw'}>
+                    {item.name}
+                  </Box>
+                </Link>
               </Box>
+
             );
           })}
         </Flex>
@@ -61,6 +67,7 @@ export const GamesList = () => {
           <Button onClick={() => handleLoadPreviousPage()}>Back</Button>
           <Button onClick={() => handleLoadForwardPage()}>Forward</Button>
         </Flex>
+
       </>
     );
   } else return null;
