@@ -5,8 +5,7 @@ import App from './App';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { GameCard } from './components/GameCard/GameCard';
-
+import { Game } from './components/Game/Game';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -14,11 +13,10 @@ ReactDOM.render(
       <Provider store={store}>
         <Switch>
           <Route exact path="/" component={App} />
-          <Route path="/gamecard">
-            <GameCard />
+          <Route path="/game">
+            <Game />
           </Route>
         </Switch>
-
       </Provider>
     </React.StrictMode>
   </BrowserRouter>,

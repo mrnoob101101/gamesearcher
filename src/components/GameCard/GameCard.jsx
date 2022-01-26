@@ -1,14 +1,26 @@
-import { Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { Poster } from './GameCard.styles';
+import { useDispatch } from 'react-redux';
+import { getGamePage, setGameScreenshots } from '../../store/main/mainSlice';
 
-export const GameCard = () => {
+export const GameCard = ({ image, name, id, screenshots }) => {
+  const dispatch = useDispatch();
 
   return (
-    <div>
-      CARD FROM COMPONENT
-      <Link to="/">
-        <Button>Back</Button>
-      </Link>
-    </div>
+    <Link
+      to={`/game/${id}`}
+      onClick={() => {
+        dispatch(getGamePage(id));
+        dispatch(
+          setGameScreenshots(screenshots)
+        ); /*Сохраняем в стор скриншоты выбраной игры чтобы не делать лишний запрос в апи (в ответе апи по выбраной игре скриншотов нет)*/
+      }}
+    >
+      <Poster background={image} />
+      <Box textAlign={'center'} py={'1vw'} color={'white'}>
+        {name}
+      </Box>
+    </Link>
   );
 };

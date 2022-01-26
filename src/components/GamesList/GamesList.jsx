@@ -2,9 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { getGames } from '../../store/main/mainSlice';
-import { Poster } from './GamesList.styled';
-import { Link } from 'react-router-dom';
-
+import { GameCard } from '../GameCard/GameCard';
+import { Pagination } from './GamesList.styled';
 
 export const GamesList = () => {
   const dispatch = useDispatch();
@@ -13,10 +12,10 @@ export const GamesList = () => {
     dispatch(getGames(page));
   }, []);
 
-  const results = useSelector(state => state.games?.gamesData.results);
-  const games = useSelector(state => state.games);
+  const results = useSelector((state) => state.games?.gamesData.results);
+  const games = useSelector((state) => state.games);
   console.log(games);
-  let page = useSelector(state => state.games?.currentPage);
+  let page = useSelector((state) => state.games?.currentPage);
 
   const handleLoadForwardPage = () => {
     page++;
@@ -43,31 +42,37 @@ export const GamesList = () => {
         >
           {results.map((item) => {
             return (
-
               <Box
                 key={item.name}
                 m={'1vw'}
-                backgroundColor={'gray'}
+                backgroundColor={'#00728c'}
                 borderRadius={'10px'}
                 overflow={'hidden'}
                 border={'solid 1px white'}
               >
-                <Link to="/gamecard">
-                  <Poster background={item.background_image} />
-                  <Box textAlign={'center'} py={'1vw'}>
-                    {item.name}
-                  </Box>
-                </Link>
+                <GameCard
+                  image={item.background_image}
+                  name={item.name}
+                  id={item.id}
+                  screenshots={item.short_screenshots}
+                />
               </Box>
-
             );
           })}
         </Flex>
         <Flex justifyContent={'center'}>
           <Button onClick={() => handleLoadPreviousPage()}>Back</Button>
+          <Pagination onClick={() => dispatch(getGames(page))}>
+            {page}
+          </Pagination>
+          <Pagination onClick={() => dispatch(getGames(page + 1))}>
+            {page + 1}
+          </Pagination>
+          <Pagination onClick={() => dispatch(getGames(page + 2))}>
+            {page + 2}
+          </Pagination>
           <Button onClick={() => handleLoadForwardPage()}>Forward</Button>
         </Flex>
-
       </>
     );
   } else return null;
