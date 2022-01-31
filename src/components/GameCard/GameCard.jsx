@@ -11,7 +11,7 @@ export const GameCard = ({ image, name, id, screenshots }) => {
     <Link
       to={`/game/${id}`}
       onClick={() => {
-        dispatch(getGamePage(id));
+        dispatch(getGamePage({ gameID: id }));
         dispatch(
           setGameScreenshots(screenshots)
         ); /*Сохраняем в стор скриншоты выбраной игры чтобы не делать лишний запрос в апи (в ответе апи по выбраной игре скриншотов нет)*/

@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+/*import { createSlice } from '@reduxjs/toolkit';
 
-export const gamesSlice = createSlice({
-  name: 'games',
+export const filtersSlice = createSlice({
+  name: 'filters',
   initialState: {
-    gamesData: {},
+    actionGenre: false,
     gamePageData: {},
     currentGameScreenshots: [],
     status: 'idle',
@@ -40,37 +40,5 @@ export const gamesSlice = createSlice({
     setGameScreenshots(state, action) {
       state.currentGameScreenshots = action.payload;
     }
-    /*getGamesWithFilter: {
-      reducer: (state) => {
-        state.status = 'loading';
-      },
-      prepare: (isActionGenreChecked) => {
-        const actionGenreFetch = isActionGenreChecked ? 'action' : '';
-        return { payload: { actionFetch: actionGenreFetch } };
-      }
-    },
-    getGamesWithFilterSuccess(state, action) {
-      state.status = 'success';
-      console.log(state.status);
-      state.gamePageData = action.payload;
-      console.log(action.payload);
-    },
-    getGamesWitchFiltersError(state, action) {
-      state.status = 'error';
-      console.log(action.payload);
-    }*/
   }
-});
-
-export const {
-  getGames,
-  getGamesSuccess,
-  getGamesError,
-  getGamePage,
-  getGamePageError,
-  getGamePageSuccess,
-  setGameScreenshots
-  /*getGamesWithFilter,
-  getGamesWithFilterSuccess,
-  getGamesWitchFiltersError*/
-} = gamesSlice.actions;
+});*/

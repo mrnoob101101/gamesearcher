@@ -1,9 +1,15 @@
 import styled from '@emotion/styled';
 
-export const Box = styled('div')`
+export const GameCardWrapper = styled('div')`
+  margin: 1vw;
+  background-color: #00728c;
+  border-radius: 10px;
+  overflow: hidden;
+  border: solid 1px white;
+
   :hover {
-    transform: scale(1.2);
-    transition: 0.4s;
+    transform: scale(0.97);
+    transition: 0.3s;
   }
 `;
 
@@ -18,7 +24,7 @@ export const Pagination = styled('div')`
   padding-top: 2px;
 
   :hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     transition: 0.2s;
   }
 `;

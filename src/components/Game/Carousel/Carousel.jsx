@@ -11,9 +11,9 @@ export const Carousel = () => {
   const screenshots = useSelector(
     (state) => state.games?.currentGameScreenshots
   );
-
-  SwiperCore.use([Navigation, Pagination]);
-
+  //убираем среди скриношотов постер, который идёт в нулевом элементе
+  const filteredScreenshots = screenshots.filter((item, index) => index !== 0);
+  SwiperCore.use([Navigation, Pagination]); //конфиг для свайпера скриншотов
   return (
     <>
       <Box background={'#3b3a3f'}>
@@ -27,7 +27,7 @@ export const Carousel = () => {
           onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={() => console.log('slide change')}
         >
-          {screenshots.map((item) => {
+          {filteredScreenshots.map((item) => {
             return (
               <SwiperSlide key={item.id}>
                 <Img src={`${item.image}`} alt={''} />

@@ -20,8 +20,8 @@ export const store = configureStore({
 });
 saga.run(gamesSaga);
 
-/*
-export const store = configureStore({
+
+/*export const store = configureStore({
   reducer: rootReducer,
   middleware: [saga]
 });

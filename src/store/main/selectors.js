@@ -7,3 +7,5 @@ export const selectName = (state) => state.games.gamePageData.name;
 export const selectMetacriticScore = (state) =>
   state.games.gamePageData.metacritic;
 export const selectWebsite = (state) => state.games.gamePageData.website;
+export const selectReleaseDate = (state) => state.games.gamePageData.released;
+

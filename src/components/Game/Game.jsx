@@ -7,7 +7,7 @@ import {
   Genre,
   Metascore,
   Overview,
-  Website,
+  Website
 } from './Game.styled';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,8 +19,8 @@ import {
   selectDescription,
   selectGenres,
   selectMetacriticScore,
-  selectName,
-  selectWebsite,
+  selectName, selectReleaseDate,
+  selectWebsite
 } from '../../store/main/selectors';
 
 export const Game = () => {
@@ -31,6 +31,7 @@ export const Game = () => {
   const background = useSelector((state) => selectBackground(state));
   const genres = useSelector((state) => selectGenres(state));
   const status = useSelector((state) => state.games.status);
+  const releaseDate = useSelector((state) => selectReleaseDate(state));
 
   if (status === 'success') {
     return (
@@ -57,6 +58,7 @@ export const Game = () => {
           </GameInfo>
           <Carousel />
           <Box background={'#3b3a3f'} textColor={'white'} px={'1vw'}>
+            <Text p={'20px'}>Released: {releaseDate}</Text>
             {genres.map((item) => {
               return <Genre key={item.id}>{item.name}</Genre>;
             })}
