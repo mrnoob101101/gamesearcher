@@ -6,14 +6,14 @@ import { GameCard } from '../GameCard/GameCard';
 import { GameCardWrapper, Pagination } from './GamesList.styled';
 import { Filter } from '../Filter/Filter';
 import { store } from '../../store/store';
-
+import axios from 'axios';
 
 export const GamesList = () => {
   const dispatch = useDispatch();
 
   const results = useSelector((state) => state.games?.gamesData.results);
   const games = useSelector((state) => state.games);
-  const state = useSelector(state => state);
+  const state = useSelector((state) => state);
   console.log(games);
   console.log(state);
   let page = useSelector((state) => state.games.currentPage);
@@ -38,24 +38,23 @@ export const GamesList = () => {
   };
   console.log(`Внешний лог ${page}`);
 
-  /*axios.get('https://api.rawg.io/api/games', {
-    params: {
-      key: '58e43edf81094db9b034a89c52461039',
-      /!*genres: 'strategy',*!/
-      platforms: '21',
-      search: '',
-      search_exact: true,
-      /!*search_precise: true,*!/
-      ordering: '-metacritic'
-    }
-  })
-    .then(function(response) {
-      console.log(response.data);
+  /*  axios.get('https://api.rawg.io/api/games', {
+      params: {
+        key: '58e43edf81094db9b034a89c52461039',
+        genres: 'strategy',
+        platforms: '21',
+        search: '',
+        search_exact: true,
+        /!*search_precise: true,*!/
+        ordering: '-metacritic'
+      }
     })
-    .catch(function(error) {
-      console.log(error);
-    });*/
-
+      .then(function(response) {
+        console.log('TEST_RESPONSE', response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });*/
 
   if (games.status === 'success') {
     return (
@@ -68,9 +67,7 @@ export const GamesList = () => {
         >
           {results.map((item) => {
             return (
-              <GameCardWrapper
-                key={item.name}
-              >
+              <GameCardWrapper key={item.name}>
                 <GameCard
                   image={item.background_image}
                   name={item.name}

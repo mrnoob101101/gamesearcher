@@ -1,17 +1,37 @@
-import { Box, Button, Checkbox, Collapse, useDisclosure } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getGamesWithFilter } from '../../store/main/mainSlice';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Collapse,
+  useDisclosure
+} from '@chakra-ui/react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { getGamesWithFilter } from '../../store/main/mainSlice';
+import { NintendoSwitch, StrategyGenre } from './Filter.styled';
 
 export const Filter = () => {
   const { isOpen, onToggle } = useDisclosure();
   const dispatch = useDispatch();
-  const [isActionGenreChecked, setActionGenreChecked] = useState(false);
-  const handleChangeActionFilter = () => {
+
+  let isStrategyGenreChecked = useSelector(
+    (state) => state.games?.isStrategyGenreChecked
+  );
+  const isNintendoSwitchChecked = useSelector(
+    (state) => state.games.isNintendoSwitchChecked
+  );
+  const state = useSelector((state) => state);
+  console.log('STATE FROM FILTER', state);
+
+
+  /*const [isActionGenreChecked, setActionGenreChecked] = useState(false);*/
+
+  /*const handleChangeActionFilter = () => {
     setActionGenreChecked(actionGenre => !actionGenre);
     console.log('ВНУТРЕННИЙ', isActionGenreChecked);
-  };
+    dispatch(getGamesWithFilter(isActionGenreChecked));
+  };*/
+
   /*const getGamesWithFilter = createAction('games/filter', (isActionGenreChecked) => {
     return {
       payload: {
@@ -19,9 +39,26 @@ export const Filter = () => {
       }
     };
   });*/
-  console.log('Внешний', isActionGenreChecked);
+  console.log('Внешний', isStrategyGenreChecked);
+  const handleChangeStrategyGamesFilter = () => {
+    dispatch(getGamesWithFilter(!isStrategyGenreChecked));
+  };
   return (
     <>
+      <Box>
+        <StrategyGenre
+          onClick={() => handleChangeStrategyGamesFilter()}
+          isStrategyGenreChecked={isStrategyGenreChecked}
+        >
+          Strategy
+        </StrategyGenre>
+        <NintendoSwitch
+          onClick={() => handleChangeStrategyGamesFilter()}
+          isStrategyGenreChecked={isNintendoSwitchChecked}
+        >
+          Nintendo Switch
+        </NintendoSwitch>
+      </Box>
       <Button onClick={onToggle}>Click Me</Button>
       <Collapse in={isOpen} animateOpacity>
         <Box
@@ -32,14 +69,21 @@ export const Filter = () => {
           rounded="md"
           shadow="md"
         >
-          <Checkbox colorScheme={'red'} px={5}
+          <Checkbox
+            colorScheme={'red'}
+            px={5}
             onChange={() => {
-              handleChangeActionFilter();
-              /*dispatch(getGamesWithFilter());*/
-            }}>Action</Checkbox>
+              dispatch(
+                getGamesWithFilter({
+                  isActionGenreChecked: isStrategyGenreChecked
+                })
+              );
+            }}
+          >
+            Action
+          </Checkbox>
 
           <Checkbox colorScheme={'red'}>Strategy</Checkbox>
-
         </Box>
       </Collapse>
     </>

@@ -7,7 +7,7 @@ import {
   Genre,
   Metascore,
   Overview,
-  Website
+  Website,
 } from './Game.styled';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -19,8 +19,9 @@ import {
   selectDescription,
   selectGenres,
   selectMetacriticScore,
-  selectName, selectReleaseDate,
-  selectWebsite
+  selectName,
+  selectReleaseDate,
+  selectWebsite,
 } from '../../store/main/selectors';
 
 export const Game = () => {

@@ -5,7 +5,10 @@ import {
   getGamePageSuccess,
   getGames,
   getGamesError,
-  getGamesSuccess, getGamesWitchFiltersError, getGamesWithFilter, getGamesWithFilterSuccess
+  getGamesSuccess,
+  getGamesWitchFiltersError,
+  getGamesWithFilter,
+  getGamesWithFilterSuccess
 } from './main/mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
@@ -37,50 +40,78 @@ function* workFetchGamePage(action) {
 }
 
 /*axios.get('https://api.rawg.io/api/games', {
-    params: {
-      key: '58e43edf81094db9b034a89c52461039',
-      genres: 'strategy',
-      platforms: '21',
-      search: '',
-      search_exact: true,
-      search_precise: true,
-      ordering: '-metacritic'
-    }
+  params: {
+    key: '58e43edf81094db9b034a89c52461039',
+    genres: 'strategy',
+    platforms: '21',
+    search: '',
+    search_exact: true,
+    search_precise: true,
+    ordering: '-metacritic'
+  }
+})
+  .then(function(response) {
+    console.log(response.data);
   })
-    .then(function(response) {
-      console.log(response.data);
-    })
-    .catch(function(error) {
-      console.log(error);
-    });*/
+  .catch(function(error) {
+    console.log(error);
+  });*/
 
-/*function* workFetchGamesWithFilter(action) {
+function* workFetchGamesWithFilter(action) {
+  const params = {
+    key: '58e43edf81094db9b034a89c52461039',
+    page: 1
+  };
+
+  if (action.payload) {
+    params.genres = 'strategy';
+  } else {
+    delete params.genres;
+  }
+
+  /*action.payload = !action.payload;*/
+  /*action.payload.isNintendoSwitchChecked = !action.payload.isNintendoSwitchChecked;*/
+
+  /*  if (action.payload.isNintendoSwitchChecked) {
+      params.platforms = '7'; //id of Nintendo
+    } else {
+      delete params.platforms;
+    }*/
+
+  console.log(params);
+  console.log(action.payload);
+
   try {
-    const gamesWithFiltersFetch = yield call(() => axios.get('https://api.rawg.io/api/games', {
-      params: {
-        key: '58e43edf81094db9b034a89c52461039',
-        genres: 'strategy', /!*action.payload.actionFetch*!/
-        platforms: '21',
-        page: 1,
-        search: '',
-        search_exact: true,
-        search_precise: true,
-        ordering: '-metacritic'
-      }
-    }));
+    const gamesWithFiltersFetch = yield call(() =>
+      axios.get(
+        'https://api.rawg.io/api/games', { params }
+      )
+    );
     console.log(gamesWithFiltersFetch.data);
     yield put(getGamesWithFilterSuccess(gamesWithFiltersFetch.data));
   } catch (error) {
     yield put(getGamesWitchFiltersError(error));
   }
-}*/
+}
 
+/*{
+  params: {
+    key: '58e43edf81094db9b034a89c52461039',
+      genres: 'strategy',
+      platforms: '21',
+      page: 1,
+      search: '',
+      search_exact: true,
+      search_precise: true,
+      ordering: '-metacritic'
+  }
+}*/
 
 function* gamesSaga() {
   yield all([
     yield takeEvery(getGames, workFetchGames),
-    yield takeEvery(getGamePage, workFetchGamePage)
-    /*yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter)*/
+    yield takeEvery(getGamePage, workFetchGamePage),
+    yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter)
   ]);
 }
 

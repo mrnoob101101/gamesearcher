@@ -7,7 +7,9 @@ export const gamesSlice = createSlice({
     gamePageData: {},
     currentGameScreenshots: [],
     status: 'idle',
-    currentPage: 1
+    currentPage: 1,
+    isStrategyGenreChecked: false,
+    isNintendoSwitchChecked: false,
   },
   reducers: {
     getGames(state, action) {
@@ -39,27 +41,31 @@ export const gamesSlice = createSlice({
     },
     setGameScreenshots(state, action) {
       state.currentGameScreenshots = action.payload;
-    }
-    /*getGamesWithFilter: {
-      reducer: (state) => {
-        state.status = 'loading';
-      },
-      prepare: (isActionGenreChecked) => {
-        const actionGenreFetch = isActionGenreChecked ? 'action' : '';
-        return { payload: { actionFetch: actionGenreFetch } };
-      }
     },
+    getGamesWithFilter(state, action) {
+      /*reducer: (state, action) => {*/
+      state.status = 'loading';
+      state.isStrategyGenreChecked = action.payload;
+      console.log('reducer', state.isStrategyGenreChecked);
+    },
+    /*prepare:
+        (isStrategyGenreChecked) => {
+          isStrategyGenreChecked = !isStrategyGenreChecked;
+          console.log(isStrategyGenreChecked);
+          return { payload: { isStrategyGenreChecked } };
+        }*/
+    /*},*/
     getGamesWithFilterSuccess(state, action) {
       state.status = 'success';
       console.log(state.status);
-      state.gamePageData = action.payload;
+      state.gamesData = action.payload;
       console.log(action.payload);
     },
     getGamesWitchFiltersError(state, action) {
       state.status = 'error';
       console.log(action.payload);
-    }*/
-  }
+    },
+  },
 });
 
 export const {
@@ -69,8 +75,8 @@ export const {
   getGamePage,
   getGamePageError,
   getGamePageSuccess,
-  setGameScreenshots
-  /*getGamesWithFilter,
+  setGameScreenshots,
+  getGamesWithFilter,
   getGamesWithFilterSuccess,
-  getGamesWitchFiltersError*/
+  getGamesWitchFiltersError,
 } = gamesSlice.actions;
