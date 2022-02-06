@@ -8,14 +8,14 @@ import {
   getGamesSuccess,
   getGamesWitchFiltersError,
   getGamesWithFilter,
-  getGamesWithFilterSuccess
+  getGamesWithFilterSuccess,
 } from './main/mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
 
 function* workFetchGames(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`
+    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`,
   });
   try {
     const gamesFetch = yield call(() => axiosFormatted.get());
@@ -28,7 +28,7 @@ function* workFetchGames(action) {
 
 function* workFetchGamePage(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`
+    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`,
   });
   try {
     const gamePageFetch = yield call(() => axiosFormatted.get());
@@ -60,14 +60,42 @@ function* workFetchGamePage(action) {
 function* workFetchGamesWithFilter(action) {
   const params = {
     key: '58e43edf81094db9b034a89c52461039',
-    page: 1
+    page: 1,
   };
+  console.log('selectedPlatform', action.payload.selectedPlatform);
 
-  if (action.payload) {
-    params.genres = 'strategy';
+  if (
+    action.payload.selectedGenre === 'none' &&
+    action.payload.selectedPlatform === 'none'
+  ) {
+    delete params.genres;
+    delete params.platforms;
+  }
+
+  if (action.payload.selectedGenre === 'none') {
+    delete params.genres;
+    params.platforms = action.payload.selectedPlatform;
+  } else {
+    params.genres = action.payload.selectedGenre;
+    params.platforms = action.payload.selectedPlatform;
+  }
+
+  if (action.payload.selectedPlatform === 'none') {
+    delete params.platforms;
+    params.genres = action.payload.selectedGenre;
+  } else {
+    params.genres = action.payload.selectedGenre;
+    params.platforms = action.payload.selectedPlatform;
+  }
+  /*params.genres = action.payload.selectedGenre;
+  params.platforms = action.payload.selectedPlatform;*/
+
+  /*if (action.payload.isGenreChecked) {
+    params.genres = action.payload.queryParamValue;
+
   } else {
     delete params.genres;
-  }
+  }*/
 
   /*action.payload = !action.payload;*/
   /*action.payload.isNintendoSwitchChecked = !action.payload.isNintendoSwitchChecked;*/
@@ -79,13 +107,10 @@ function* workFetchGamesWithFilter(action) {
     }*/
 
   console.log(params);
-  console.log(action.payload);
 
   try {
     const gamesWithFiltersFetch = yield call(() =>
-      axios.get(
-        'https://api.rawg.io/api/games', { params }
-      )
+      axios.get('https://api.rawg.io/api/games', { params })
     );
     console.log(gamesWithFiltersFetch.data);
     yield put(getGamesWithFilterSuccess(gamesWithFiltersFetch.data));
@@ -111,7 +136,7 @@ function* gamesSaga() {
   yield all([
     yield takeEvery(getGames, workFetchGames),
     yield takeEvery(getGamePage, workFetchGamePage),
-    yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter)
+    yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter),
   ]);
 }
 

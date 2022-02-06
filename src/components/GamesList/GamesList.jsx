@@ -59,7 +59,6 @@ export const GamesList = () => {
   if (games.status === 'success') {
     return (
       <>
-        <Filter />
         <Flex
           justifyContent={'space-around'}
           flexWrap={'wrap'}

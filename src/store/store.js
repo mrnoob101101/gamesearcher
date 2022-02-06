@@ -4,14 +4,14 @@ import createSagaMiddleware from 'redux-saga';
 import { gamesSaga } from './games.sagas';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
-import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
+import autoMergeLevel3 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 
 const saga = createSagaMiddleware();
 
 const persistConfig = {
   key: 'root',
   storage,
-  stateReconciler: autoMergeLevel2,
+  stateReconciler: autoMergeLevel3,
 };
 
 const persistedreducer = persistReducer(persistConfig, rootReducer);

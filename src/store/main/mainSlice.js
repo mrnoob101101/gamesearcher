@@ -9,7 +9,10 @@ export const gamesSlice = createSlice({
     status: 'idle',
     currentPage: 1,
     isStrategyGenreChecked: false,
+    isIndieGenreChecked: false,
     isNintendoSwitchChecked: false,
+    selectedGenre: '',
+    selectedPlatform: '',
   },
   reducers: {
     getGames(state, action) {
@@ -42,19 +45,16 @@ export const gamesSlice = createSlice({
     setGameScreenshots(state, action) {
       state.currentGameScreenshots = action.payload;
     },
-    getGamesWithFilter(state, action) {
-      /*reducer: (state, action) => {*/
-      state.status = 'loading';
-      state.isStrategyGenreChecked = action.payload;
-      console.log('reducer', state.isStrategyGenreChecked);
+    getGamesWithFilter: {
+      reducer: (state, action) => {
+        state.status = 'loading';
+        state.selectedGenre = action.payload.selectedGenre;
+        state.selectedPlatform = action.payload.selectedPlatform;
+      },
+      prepare: (selectedGenre, selectedPlatform) => {
+        return { payload: { selectedGenre, selectedPlatform } };
+      },
     },
-    /*prepare:
-        (isStrategyGenreChecked) => {
-          isStrategyGenreChecked = !isStrategyGenreChecked;
-          console.log(isStrategyGenreChecked);
-          return { payload: { isStrategyGenreChecked } };
-        }*/
-    /*},*/
     getGamesWithFilterSuccess(state, action) {
       state.status = 'success';
       console.log(state.status);
