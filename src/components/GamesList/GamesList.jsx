@@ -18,6 +18,7 @@ export const GamesList = () => {
   console.log(state);
   let page = useSelector((state) => state.games.currentPage);
   console.log(store.getState());
+
   useEffect(() => {
     dispatch(getGames(page));
   }, [dispatch, page]);

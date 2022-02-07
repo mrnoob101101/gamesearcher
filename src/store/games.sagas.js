@@ -8,14 +8,14 @@ import {
   getGamesSuccess,
   getGamesWitchFiltersError,
   getGamesWithFilter,
-  getGamesWithFilterSuccess,
+  getGamesWithFilterSuccess
 } from './main/mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
 
 function* workFetchGames(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`,
+    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`
   });
   try {
     const gamesFetch = yield call(() => axiosFormatted.get());
@@ -28,7 +28,7 @@ function* workFetchGames(action) {
 
 function* workFetchGamePage(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`,
+    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`
   });
   try {
     const gamePageFetch = yield call(() => axiosFormatted.get());
@@ -60,17 +60,17 @@ function* workFetchGamePage(action) {
 function* workFetchGamesWithFilter(action) {
   const params = {
     key: '58e43edf81094db9b034a89c52461039',
-    page: 1,
+    page: 1
   };
   console.log('selectedPlatform', action.payload.selectedPlatform);
 
-  if (
+  /*if (
     action.payload.selectedGenre === 'none' &&
     action.payload.selectedPlatform === 'none'
   ) {
     delete params.genres;
     delete params.platforms;
-  }
+  } else {*/
 
   if (action.payload.selectedGenre === 'none') {
     delete params.genres;
@@ -84,9 +84,11 @@ function* workFetchGamesWithFilter(action) {
     delete params.platforms;
     params.genres = action.payload.selectedGenre;
   } else {
-    params.genres = action.payload.selectedGenre;
+    /*params.genres = action.payload.selectedGenre;*/
     params.platforms = action.payload.selectedPlatform;
   }
+
+
   /*params.genres = action.payload.selectedGenre;
   params.platforms = action.payload.selectedPlatform;*/
 
@@ -136,7 +138,7 @@ function* gamesSaga() {
   yield all([
     yield takeEvery(getGames, workFetchGames),
     yield takeEvery(getGamePage, workFetchGamePage),
-    yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter),
+    yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter)
   ]);
 }
 

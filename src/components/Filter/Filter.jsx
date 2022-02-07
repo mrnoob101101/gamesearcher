@@ -1,37 +1,40 @@
 import {
   Box,
   Button,
-  Checkbox,
-  Collapse,
   Radio,
   RadioGroup,
-  Stack,
-  useDisclosure,
+  Stack
 } from '@chakra-ui/react';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { getGamesWithFilter } from '../../store/main/mainSlice';
-import { IndieGenre, NintendoSwitch, StrategyGenre } from './Filter.styled';
+import { getGames, getGamesWithFilter } from '../../store/main/mainSlice';
 import { useState } from 'react';
 import { listOfGenres } from './utils/listOfGenres';
 import { listOfPlatforms } from './utils/listOfPlatforms';
 
 export const Filter = () => {
-  const { isOpen, onToggle } = useDisclosure();
+
   const dispatch = useDispatch();
 
   const state = useSelector((state) => state);
   console.log('STATE FROM FILTER', state);
   const selectedGenre = useSelector((state) => state.games.selectedGenre);
   const selectedPlatform = useSelector((state) => state.games.selectedPlatform);
+  const page = useSelector(state => state.games.currentPage);
 
-  /*const [value, setValue] = useState('');*/
+  const [genreRadioButtonPosition, setGenreRadioButtonPosition] = useState('');
+  const [platformRadioButtonPosition, setPlatformRadioButtonPosition] = useState('');
+
+  const handleClearFilters = () => {
+    setPlatformRadioButtonPosition('');
+    setGenreRadioButtonPosition('');
+    dispatch(getGames(page));
+  };
 
   console.log('selectedGenre', selectedGenre);
   return (
     <>
       <Box>
-        <RadioGroup>
+        <RadioGroup onChange={setGenreRadioButtonPosition} value={genreRadioButtonPosition}>
           <Stack direction="row">
             {listOfGenres.map((genre) => {
               return (
@@ -47,18 +50,18 @@ export const Filter = () => {
                 </div>
               );
             })}
-            <Radio
-              value="all"
+            {/*<Radio
+              platform="all"
               onClick={() =>
-                dispatch(getGamesWithFilter('none', selectedPlatform))
+                dispatch(getGames(page))
               }
             >
               All
-            </Radio>
+            </Radio>*/}
           </Stack>
         </RadioGroup>
 
-        <RadioGroup>
+        <RadioGroup onChange={setPlatformRadioButtonPosition} value={platformRadioButtonPosition}>
           <Stack direction="row">
 
             {listOfPlatforms.map((platform) => {
@@ -75,44 +78,11 @@ export const Filter = () => {
                 </div>
               );
             })}
-            <Radio
-              value="all"
-              onClick={() =>
-                dispatch(getGamesWithFilter(selectedGenre, 'none'))
-              }
-            >
-              All
-            </Radio>
+            <Button onClick={() => handleClearFilters()}>Clear filters</Button>
           </Stack>
         </RadioGroup>
       </Box>
-      <Button onClick={onToggle}>Click Me</Button>
-      <Collapse in={isOpen} animateOpacity>
-        <Box
-          p="40px"
-          color="white"
-          mt="4"
-          bg="teal.500"
-          rounded="md"
-          shadow="md"
-        >
-          <Checkbox
-            colorScheme={'red'}
-            px={5}
-            onChange={() => {
-              dispatch(
-                getGamesWithFilter({
-                  isActionGenreChecked: isStrategyGenreChecked,
-                })
-              );
-            }}
-          >
-            Action
-          </Checkbox>
 
-          <Checkbox colorScheme={'red'}>Strategy</Checkbox>
-        </Box>
-      </Collapse>
     </>
   );
 };
