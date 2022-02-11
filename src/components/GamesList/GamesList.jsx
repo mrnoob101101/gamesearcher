@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Button, Flex } from '@chakra-ui/react';
 import {
   getGames,
-  getLastRequestedPage,
+  getLastRequestedPage, getNextPageWithRequestedQueryParams
 } from '../../store/main/mainSlice';
 import { GameCard } from '../GameCard/GameCard';
 import { GameCardWrapper, Pagination } from './GamesList.styled';
@@ -17,6 +17,7 @@ export const GamesList = () => {
   const results = useSelector((state) => state.games?.gamesData.results);
   const games = useSelector((state) => state.games);
   const lastRequestURL = useSelector((state) => state.games.lastRequestURL);
+  const nextPageURL = useSelector((state) => state.games.gamesData.next);
   console.log(games);
 
   let page = useSelector((state) => state.games.currentPage);
@@ -78,7 +79,8 @@ export const GamesList = () => {
           <Pagination onClick={() => dispatch(getGames(page + 2))}>
             {page + 2}
           </Pagination>
-          <Button onClick={handleLoadForwardPage}>Forward</Button>
+          {/*<Button onClick={handleLoadForwardPage}>Forward</Button>*/}
+          <Button onClick={() => dispatch(getNextPageWithRequestedQueryParams(nextPageURL))}>Forward</Button>
         </Flex>
       </>
     );

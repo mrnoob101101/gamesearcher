@@ -10,7 +10,7 @@ export const gamesSlice = createSlice({
     currentPage: 1,
     lastRequestURL: '',
     selectedGenre: 'none',
-    selectedPlatform: 'none',
+    selectedPlatform: 'none'
   },
   reducers: {
     getGames(state, action) {
@@ -66,7 +66,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (selectedGenre, selectedPlatform) => {
         return { payload: { selectedGenre, selectedPlatform } };
-      },
+      }
     },
     getGamesWithFilterSuccess: {
       reducer: (state, action) => {
@@ -78,13 +78,39 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, requestURL) => {
         return { payload: { gamesData, requestURL } };
-      },
+      }
     },
     getGamesWitchFiltersError(state, action) {
       state.status = 'error';
       console.log(action.payload);
     },
-  },
+    getNextPageWithRequestedQueryParams: {
+      reducer: (state, action) => {
+        state.status = 'loading';
+        console.log(state.status);
+        state.currentPage = action.payload.page;
+      },
+      prepare: (nextPageRequestURL, page) => {
+        return { payload: { nextPageRequestURL, page } };
+      }
+    },
+    getNextPageWithRequestedQueryParamsSuccess: {
+      reducer: (state, action) => {
+        state.status = 'success';
+        console.log(state.status);
+        state.gamesData = action.payload.gamesData;
+        state.lastRequestURL = action.payload.lastRequestURL;
+        console.log(action.payload);
+      },
+      prepare: (gamesData, lastRequestURL) => {
+        return { payload: { gamesData, lastRequestURL } };
+      }
+    },
+    getNextPageWithRequestedQueryParamsError(state, action) {
+      state.status = 'error';
+      console.log(action.payload);
+    }
+  }
 });
 
 export const {
@@ -101,4 +127,7 @@ export const {
   getGamesWithFilter,
   getGamesWithFilterSuccess,
   getGamesWitchFiltersError,
+  getNextPageWithRequestedQueryParams,
+  getNextPageWithRequestedQueryParamsSuccess,
+  getNextPageWithRequestedQueryParamsError
 } = gamesSlice.actions;

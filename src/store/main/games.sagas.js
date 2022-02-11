@@ -12,13 +12,16 @@ import {
   getLastRequestedPage,
   getLastRequestedPageError,
   getLastRequestedPageSuccess,
+  getNextPageWithRequestedQueryParams,
+  getNextPageWithRequestedQueryParamsError,
+  getNextPageWithRequestedQueryParamsSuccess
 } from './mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
 
 function* workFetchGames(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`,
+    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`
   });
   try {
     const gamesFetch = yield call(() => axiosFormatted.get());
@@ -31,7 +34,7 @@ function* workFetchGames(action) {
 
 function* workFetchGamePage(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`,
+    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`
   });
   try {
     const gamePageFetch = yield call(() => axiosFormatted.get());
@@ -44,7 +47,7 @@ function* workFetchGamePage(action) {
 
 function* workFetchGamesWithFilter(action) {
   const params = {
-    key: '58e43edf81094db9b034a89c52461039',
+    key: '58e43edf81094db9b034a89c52461039'
     /*page: 1*/
   };
   console.log('selectedPlatform', action.payload.selectedPlatform);
@@ -61,7 +64,6 @@ function* workFetchGamesWithFilter(action) {
     delete params.platforms;
     params.genres = action.payload.selectedGenre;
   } else {
-    /*params.genres = action.payload.selectedGenre;*/
     params.platforms = action.payload.selectedPlatform;
   }
 
@@ -84,7 +86,7 @@ function* workFetchGamesWithFilter(action) {
 
 function* workFetchLastRequestedPage(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${action.payload}`,
+    baseURL: `${action.payload}`
   });
   try {
     const gamesFetch = yield call(() => axiosFormatted.get());
@@ -94,6 +96,25 @@ function* workFetchLastRequestedPage(action) {
     yield put(getLastRequestedPageError(error));
   }
 }
+
+function* workFetchNextPage(action) {
+  const axiosFormatted = axios.create({
+    baseURL: `${action.payload.nextPageRequestURL}`
+  });
+  try {
+    const nextPageFetch = yield call(() => axiosFormatted.get());
+    console.log(nextPageFetch.data);
+    yield put(
+      getNextPageWithRequestedQueryParamsSuccess(
+        nextPageFetch.data,
+        nextPageFetch.request.responseURL
+      )
+    );
+  } catch (error) {
+    yield put(getNextPageWithRequestedQueryParamsError(error));
+  }
+}
+
 
 /*{
   params: {
@@ -113,6 +134,7 @@ function* gamesSaga() {
     yield takeEvery(getGamePage, workFetchGamePage),
     yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter),
     yield takeEvery(getLastRequestedPage, workFetchLastRequestedPage),
+    yield takeEvery(getNextPageWithRequestedQueryParams, workFetchNextPage)
   ]);
 }
 

@@ -23,11 +23,8 @@ import {
   selectReleaseDate,
   selectWebsite
 } from '../../store/main/selectors';
-import { getLastRequestedPage } from '../../store/main/mainSlice';
 
 export const Game = () => {
-
-  const dispatch = useDispatch();
 
   const website = useSelector(selectWebsite);
   const metacriticScore = useSelector(selectMetacriticScore);
