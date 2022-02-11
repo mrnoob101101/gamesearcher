@@ -1,13 +1,13 @@
 import { Box, Button, ChakraProvider, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   DescriptionText,
   GameInfo,
   Genre,
   Metascore,
   Overview,
-  Website,
+  Website
 } from './Game.styled';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -21,18 +21,22 @@ import {
   selectMetacriticScore,
   selectName,
   selectReleaseDate,
-  selectWebsite,
+  selectWebsite
 } from '../../store/main/selectors';
+import { getLastRequestedPage } from '../../store/main/mainSlice';
 
 export const Game = () => {
-  const website = useSelector((state) => selectWebsite(state));
-  const metacriticScore = useSelector((state) => selectMetacriticScore(state));
-  const name = useSelector((state) => selectName(state));
-  const description = useSelector((state) => selectDescription(state));
-  const background = useSelector((state) => selectBackground(state));
-  const genres = useSelector((state) => selectGenres(state));
+
+  const dispatch = useDispatch();
+
+  const website = useSelector(selectWebsite);
+  const metacriticScore = useSelector(selectMetacriticScore);
+  const name = useSelector(selectName);
+  const description = useSelector(selectDescription);
+  const background = useSelector(selectBackground);
+  const genres = useSelector(selectGenres);
+  const releaseDate = useSelector(selectReleaseDate);
   const status = useSelector((state) => state.games.status);
-  const releaseDate = useSelector((state) => selectReleaseDate(state));
 
   if (status === 'success') {
     return (

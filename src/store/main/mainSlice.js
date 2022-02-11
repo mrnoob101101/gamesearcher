@@ -8,11 +8,9 @@ export const gamesSlice = createSlice({
     currentGameScreenshots: [],
     status: 'idle',
     currentPage: 1,
-    isStrategyGenreChecked: false,
-    isIndieGenreChecked: false,
-    isNintendoSwitchChecked: false,
+    lastRequestURL: '',
     selectedGenre: 'none',
-    selectedPlatform: 'none'
+    selectedPlatform: 'none',
   },
   reducers: {
     getGames(state, action) {
@@ -44,6 +42,19 @@ export const gamesSlice = createSlice({
       state.status = 'error';
       console.log(action.payload);
     },
+    getLastRequestedPage(state) {
+      state.status = 'loading';
+      console.log(state.status);
+    },
+    getLastRequestedPageSuccess(state, action) {
+      state.status = 'success';
+      state.gamesData = action.payload;
+      console.log(state.status);
+    },
+    getLastRequestedPageError(state, action) {
+      state.status = 'error';
+      console.log(action.payload);
+    },
     setGameScreenshots(state, action) {
       state.currentGameScreenshots = action.payload;
     },
@@ -55,19 +66,25 @@ export const gamesSlice = createSlice({
       },
       prepare: (selectedGenre, selectedPlatform) => {
         return { payload: { selectedGenre, selectedPlatform } };
-      }
+      },
     },
-    getGamesWithFilterSuccess(state, action) {
-      state.status = 'success';
-      console.log(state.status);
-      state.gamesData = action.payload;
-      console.log(action.payload);
+    getGamesWithFilterSuccess: {
+      reducer: (state, action) => {
+        state.status = 'success';
+        console.log(state.status);
+        state.gamesData = action.payload.gamesData;
+        state.lastRequestURL = action.payload.requestURL;
+        console.log(action.payload);
+      },
+      prepare: (gamesData, requestURL) => {
+        return { payload: { gamesData, requestURL } };
+      },
     },
     getGamesWitchFiltersError(state, action) {
       state.status = 'error';
       console.log(action.payload);
-    }
-  }
+    },
+  },
 });
 
 export const {
@@ -77,8 +94,11 @@ export const {
   getGamePage,
   getGamePageError,
   getGamePageSuccess,
+  getLastRequestedPage,
+  getLastRequestedPageSuccess,
+  getLastRequestedPageError,
   setGameScreenshots,
   getGamesWithFilter,
   getGamesWithFilterSuccess,
-  getGamesWitchFiltersError
+  getGamesWitchFiltersError,
 } = gamesSlice.actions;

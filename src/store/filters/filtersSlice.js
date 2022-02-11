@@ -4,7 +4,7 @@ export const filtersSlice = createSlice({
   name: 'filters',
   initialState: {
     selectedGenre: 'none',
-    selectedPlatform: 'none'
+    selectedPlatform: 'none',
   },
   reducers: {
     getGamesBySearch(state, action) {
@@ -36,6 +36,6 @@ export const filtersSlice = createSlice({
     },
     setGameScreenshots(state, action) {
       state.currentGameScreenshots = action.payload;
-    }
-  }
+    },
+  },
 });

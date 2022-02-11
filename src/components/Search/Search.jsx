@@ -6,11 +6,10 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  useDisclosure
+  useDisclosure,
 } from '@chakra-ui/react';
 import { ReactComponent as SearchIcon } from '../../assets/searchIcon.svg';
 import { useState } from 'react';
-
 
 export const Search = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -33,7 +32,6 @@ export const Search = () => {
     }
   };
 
-
   return (
     <>
       <Button onClick={onToggle}>Click Me</Button>
@@ -47,8 +45,11 @@ export const Search = () => {
           shadow="md"
         >
           <InputGroup>
-            <Input placeholder={'Search your game'} onChange={handleChangeValue}
-              onKeyDown={handleSubmit} />
+            <Input
+              placeholder={'Search your game'}
+              onChange={handleChangeValue}
+              onKeyDown={handleSubmit}
+            />
             <InputRightElement width="1rem">
               <IconButton
                 colorScheme="blue"
@@ -63,6 +64,3 @@ export const Search = () => {
     </>
   );
 };
-
-
-

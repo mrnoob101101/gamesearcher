@@ -1,28 +1,22 @@
-import {
-  Box,
-  Button,
-  Radio,
-  RadioGroup,
-  Stack
-} from '@chakra-ui/react';
+import { Box, Button, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGames, getGamesWithFilter } from '../../store/main/mainSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { listOfGenres } from './utils/listOfGenres';
 import { listOfPlatforms } from './utils/listOfPlatforms';
 
 export const Filter = () => {
-
   const dispatch = useDispatch();
 
   const state = useSelector((state) => state);
   console.log('STATE FROM FILTER', state);
   const selectedGenre = useSelector((state) => state.games.selectedGenre);
   const selectedPlatform = useSelector((state) => state.games.selectedPlatform);
-  const page = useSelector(state => state.games.currentPage);
+  const page = useSelector((state) => state.games.currentPage);
 
   const [genreRadioButtonPosition, setGenreRadioButtonPosition] = useState('');
-  const [platformRadioButtonPosition, setPlatformRadioButtonPosition] = useState('');
+  const [platformRadioButtonPosition, setPlatformRadioButtonPosition] =
+    useState('');
 
   const handleClearFilters = () => {
     setPlatformRadioButtonPosition('');
@@ -30,17 +24,26 @@ export const Filter = () => {
     dispatch(getGames(page));
   };
 
-  console.log('selectedGenre', selectedGenre);
+  useEffect(() => {
+    setPlatformRadioButtonPosition(selectedPlatform);
+    setGenreRadioButtonPosition(selectedGenre);
+  });
+
+  console.log('genreRadioButtonPosition', genreRadioButtonPosition);
+
   return (
     <>
       <Box>
-        <RadioGroup onChange={setGenreRadioButtonPosition} value={genreRadioButtonPosition}>
+        <RadioGroup
+          onChange={setGenreRadioButtonPosition}
+          value={genreRadioButtonPosition}
+        >
           <Stack direction="row">
             {listOfGenres.map((genre) => {
               return (
                 <div key={genre.id}>
                   <Radio
-                    value={genre.name}
+                    value={genre.id}
                     onClick={() =>
                       dispatch(getGamesWithFilter(genre.id, selectedPlatform))
                     }
@@ -61,14 +64,16 @@ export const Filter = () => {
           </Stack>
         </RadioGroup>
 
-        <RadioGroup onChange={setPlatformRadioButtonPosition} value={platformRadioButtonPosition}>
+        <RadioGroup
+          onChange={setPlatformRadioButtonPosition}
+          value={platformRadioButtonPosition}
+        >
           <Stack direction="row">
-
             {listOfPlatforms.map((platform) => {
               return (
                 <div key={platform.id}>
                   <Radio
-                    value={platform.name}
+                    value={platform.id}
                     onClick={() =>
                       dispatch(getGamesWithFilter(selectedGenre, platform.id))
                     }
@@ -82,7 +87,6 @@ export const Filter = () => {
           </Stack>
         </RadioGroup>
       </Box>
-
     </>
   );
 };

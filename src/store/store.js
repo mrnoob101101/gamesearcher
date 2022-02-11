@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './root.reducer';
 import createSagaMiddleware from 'redux-saga';
-import { gamesSaga } from './games.sagas';
+import { gamesSaga } from './main/games.sagas';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import autoMergeLevel3 from 'redux-persist/es/stateReconciler/autoMergeLevel2';

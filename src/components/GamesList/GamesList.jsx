@@ -1,27 +1,34 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Button, Flex } from '@chakra-ui/react';
-import { getGames } from '../../store/main/mainSlice';
+import {
+  getGames,
+  getLastRequestedPage,
+} from '../../store/main/mainSlice';
 import { GameCard } from '../GameCard/GameCard';
 import { GameCardWrapper, Pagination } from './GamesList.styled';
-import { Filter } from '../Filter/Filter';
+
 import { store } from '../../store/store';
-import axios from 'axios';
+
 
 export const GamesList = () => {
   const dispatch = useDispatch();
 
   const results = useSelector((state) => state.games?.gamesData.results);
   const games = useSelector((state) => state.games);
-  const state = useSelector((state) => state);
+  const lastRequestURL = useSelector((state) => state.games.lastRequestURL);
   console.log(games);
-  console.log(state);
+
   let page = useSelector((state) => state.games.currentPage);
   console.log(store.getState());
 
   useEffect(() => {
-    dispatch(getGames(page));
-  }, [dispatch, page]);
+    if (games.selectedGenre !== 'none' || games.selectedPlatform !== 'none') {
+      dispatch(getLastRequestedPage(lastRequestURL));
+    } else {
+      dispatch(getGames(page));
+    }
+  }, []);
 
   const handleLoadForwardPage = () => {
     page++;
@@ -38,24 +45,6 @@ export const GamesList = () => {
     }
   };
   console.log(`Внешний лог ${page}`);
-
-  /*  axios.get('https://api.rawg.io/api/games', {
-      params: {
-        key: '58e43edf81094db9b034a89c52461039',
-        genres: 'strategy',
-        platforms: '21',
-        search: '',
-        search_exact: true,
-        /!*search_precise: true,*!/
-        ordering: '-metacritic'
-      }
-    })
-      .then(function(response) {
-        console.log('TEST_RESPONSE', response.data);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });*/
 
   if (games.status === 'success') {
     return (
@@ -79,7 +68,7 @@ export const GamesList = () => {
           })}
         </Flex>
         <Flex justifyContent={'center'}>
-          <Button onClick={() => handleLoadPreviousPage()}>Back</Button>
+          <Button onClick={handleLoadPreviousPage}>Back</Button>
           <Pagination onClick={() => dispatch(getGames(page))}>
             {page}
           </Pagination>
@@ -89,7 +78,7 @@ export const GamesList = () => {
           <Pagination onClick={() => dispatch(getGames(page + 2))}>
             {page + 2}
           </Pagination>
-          <Button onClick={() => handleLoadForwardPage()}>Forward</Button>
+          <Button onClick={handleLoadForwardPage}>Forward</Button>
         </Flex>
       </>
     );
