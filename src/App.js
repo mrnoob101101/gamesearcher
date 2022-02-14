@@ -8,8 +8,8 @@ function App() {
   return (
     <ChakraProvider>
       <div className="App">
-        <Filter />
         <Search />
+        <Filter />
         <GamesList />
       </div>
     </ChakraProvider>

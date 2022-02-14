@@ -1,15 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import { Button, Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import {
   getGames,
-  getLastRequestedPage, getNextPageWithRequestedQueryParams
+  getLastRequestedPage, getPaginationPageWithRequestedQueryParams
 } from '../../store/main/mainSlice';
 import { GameCard } from '../GameCard/GameCard';
-import { GameCardWrapper, Pagination } from './GamesList.styled';
-
-import { store } from '../../store/store';
-
+import {
+  ArrowBoxLeft,
+  ArrowBoxRight
+} from './GamesList.styled';
+import { ReactComponent as ArrowRightIcon } from '../../assets/arrowRight.svg';
+import { ReactComponent as ArrowLeftIcon } from '../../assets/arrowLeft.svg';
+import { Pagination } from './Pagination/Pagination';
 
 export const GamesList = () => {
   const dispatch = useDispatch();
@@ -18,11 +21,12 @@ export const GamesList = () => {
   const games = useSelector((state) => state.games);
   const lastRequestURL = useSelector((state) => state.games.lastRequestURL);
   const nextPageURL = useSelector((state) => state.games.gamesData.next);
-  console.log(games);
+  const previousPageURL = useSelector(state => state.games.gamesData.previous);
+  const state = useSelector(state => state);
 
   let page = useSelector((state) => state.games.currentPage);
-  console.log(store.getState());
-
+  console.log('page', page);
+  console.log('state', state);
   useEffect(() => {
     if (games.selectedGenre !== 'none' || games.selectedPlatform !== 'none') {
       dispatch(getLastRequestedPage(lastRequestURL));
@@ -31,58 +35,69 @@ export const GamesList = () => {
     }
   }, []);
 
-  const handleLoadForwardPage = () => {
+  const handleLoadNextPage = () => {
     page++;
-    dispatch(getGames(page));
+    dispatch(getPaginationPageWithRequestedQueryParams(nextPageURL, page));
     console.log(page);
   };
 
   const handleLoadPreviousPage = () => {
     if (page > 1) {
       page--;
-      dispatch(getGames(page));
+      dispatch(getPaginationPageWithRequestedQueryParams(previousPageURL, page));
       console.log(page);
       console.log('Prev page');
     }
   };
-  console.log(`Внешний лог ${page}`);
 
-  if (games.status === 'success') {
+  if (games.status === 'success' && results.length !== 0) {
     return (
       <>
-        <Flex
-          justifyContent={'space-around'}
-          flexWrap={'wrap'}
-          backgroundColor={'black'}
-        >
-          {results.map((item) => {
-            return (
-              <GameCardWrapper key={item.name}>
+        <Flex justify={'center'}>
+          <Box w={'3vw'} cursor={'pointer'} bg={'black'}
+            onClick={handleLoadPreviousPage}>
+            <ArrowBoxLeft>
+              <ArrowLeftIcon />
+            </ArrowBoxLeft>
+          </Box>
+          <Flex
+            justifyContent={'space-around'}
+            flexWrap={'wrap'}
+            backgroundColor={'black'}
+            minH={'90vh'}
+            w={'94vw'}
+            transform={'perspective(400px)'}
+
+          >
+            {results.map((item) => {
+              return (
+                /*<GameCardWrapper >*/
                 <GameCard
+                  key={item.id}
                   image={item.background_image}
                   name={item.name}
                   id={item.id}
                   screenshots={item.short_screenshots}
                 />
-              </GameCardWrapper>
-            );
-          })}
+                /*</GameCardWrapper>*/
+              );
+            })}
+          </Flex>
+          <Box w={'3vw'} cursor={'pointer'} bg={'black'}
+            onClick={handleLoadNextPage}>
+            <ArrowBoxRight>
+              <ArrowRightIcon />
+            </ArrowBoxRight>
+          </Box>
         </Flex>
-        <Flex justifyContent={'center'}>
-          <Button onClick={handleLoadPreviousPage}>Back</Button>
-          <Pagination onClick={() => dispatch(getGames(page))}>
-            {page}
-          </Pagination>
-          <Pagination onClick={() => dispatch(getGames(page + 1))}>
-            {page + 1}
-          </Pagination>
-          <Pagination onClick={() => dispatch(getGames(page + 2))}>
-            {page + 2}
-          </Pagination>
-          {/*<Button onClick={handleLoadForwardPage}>Forward</Button>*/}
-          <Button onClick={() => dispatch(getNextPageWithRequestedQueryParams(nextPageURL))}>Forward</Button>
-        </Flex>
+        <Pagination />
       </>
+    );
+  }
+  if (results.length === 0) {
+    return (
+      <Box bg={'black'} fontSize={'10em'} minH={'90vh'} textAlign={'center'}>No
+        results</Box>
     );
   } else return null;
 };

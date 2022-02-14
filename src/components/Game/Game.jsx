@@ -1,12 +1,11 @@
 import { Box, Button, ChakraProvider, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   DescriptionText,
   GameInfo,
   Genre,
   Metascore,
-  Overview,
   Website
 } from './Game.styled';
 import 'swiper/css';
@@ -54,9 +53,7 @@ export const Game = () => {
               {name}
               <Metascore>Metascore: {metacriticScore}</Metascore>
             </Text>
-            <Overview>
-              <DescriptionText>{description}</DescriptionText>
-            </Overview>
+            <DescriptionText>{description}</DescriptionText>
           </GameInfo>
           <Carousel />
           <Box background={'#3b3a3f'} textColor={'white'} px={'1vw'}>

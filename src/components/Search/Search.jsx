@@ -6,14 +6,17 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  useDisclosure,
+  useDisclosure
 } from '@chakra-ui/react';
 import { ReactComponent as SearchIcon } from '../../assets/searchIcon.svg';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsFiltersOpen } from '../../store/main/mainSlice';
 
 export const Search = () => {
   const { isOpen, onToggle } = useDisclosure();
-
+  let isFiltersOpen = useSelector(state => state.games.isFiltersOpen);
+  const dispatch = useDispatch();
   const [value, setValue] = useState('');
 
   const handleSubmit = (e) => {
@@ -31,11 +34,17 @@ export const Search = () => {
       setValue('');
     }
   };
+  console.log(isOpen);
+
+
+  const handleToggle = () => {
+    dispatch(setIsFiltersOpen(!isFiltersOpen));
+  };
 
   return (
     <>
-      <Button onClick={onToggle}>Click Me</Button>
-      <Collapse in={isOpen} animateOpacity>
+      <Button onClick={handleToggle}>Click Me</Button>
+      <Collapse in={isFiltersOpen} animateOpacity>
         <Box
           p="40px"
           color="white"

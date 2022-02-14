@@ -10,7 +10,8 @@ export const gamesSlice = createSlice({
     currentPage: 1,
     lastRequestURL: '',
     selectedGenre: 'none',
-    selectedPlatform: 'none'
+    selectedPlatform: 'none',
+    isFiltersOpen: false
   },
   reducers: {
     getGames(state, action) {
@@ -63,6 +64,7 @@ export const gamesSlice = createSlice({
         state.status = 'loading';
         state.selectedGenre = action.payload.selectedGenre;
         state.selectedPlatform = action.payload.selectedPlatform;
+        state.currentPage = 1;
       },
       prepare: (selectedGenre, selectedPlatform) => {
         return { payload: { selectedGenre, selectedPlatform } };
@@ -84,31 +86,35 @@ export const gamesSlice = createSlice({
       state.status = 'error';
       console.log(action.payload);
     },
-    getNextPageWithRequestedQueryParams: {
+    getPaginationPageWithRequestedQueryParams: {
       reducer: (state, action) => {
         state.status = 'loading';
         console.log(state.status);
         state.currentPage = action.payload.page;
       },
-      prepare: (nextPageRequestURL, page) => {
-        return { payload: { nextPageRequestURL, page } };
+      prepare: (paginationPageRequestURL, page) => {
+        return { payload: { paginationPageRequestURL, page } };
       }
     },
-    getNextPageWithRequestedQueryParamsSuccess: {
+    getPaginationPageWithRequestedQueryParamsSuccess: {
       reducer: (state, action) => {
         state.status = 'success';
         console.log(state.status);
         state.gamesData = action.payload.gamesData;
         state.lastRequestURL = action.payload.lastRequestURL;
+
         console.log(action.payload);
       },
       prepare: (gamesData, lastRequestURL) => {
         return { payload: { gamesData, lastRequestURL } };
       }
     },
-    getNextPageWithRequestedQueryParamsError(state, action) {
+    getPaginationPageWithRequestedQueryParamsError(state, action) {
       state.status = 'error';
       console.log(action.payload);
+    },
+    setIsFiltersOpen(state, action) {
+      state.isFiltersOpen = action.payload;
     }
   }
 });
@@ -127,7 +133,8 @@ export const {
   getGamesWithFilter,
   getGamesWithFilterSuccess,
   getGamesWitchFiltersError,
-  getNextPageWithRequestedQueryParams,
-  getNextPageWithRequestedQueryParamsSuccess,
-  getNextPageWithRequestedQueryParamsError
+  getPaginationPageWithRequestedQueryParams,
+  getPaginationPageWithRequestedQueryParamsSuccess,
+  getPaginationPageWithRequestedQueryParamsError,
+  setIsFiltersOpen
 } = gamesSlice.actions;

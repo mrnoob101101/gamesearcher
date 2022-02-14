@@ -1,30 +1,28 @@
 import styled from '@emotion/styled';
 
-export const GameCardWrapper = styled('div')`
-  margin: 1vw;
-  background-color: #00728c;
-  border-radius: 10px;
-  overflow: hidden;
-  border: solid 1px white;
 
-  :hover {
-    transform: scale(0.97);
-    transition: 0.3s;
+export const ArrowBoxRight = styled('div')`
+  svg {
+    width: 50px;
   }
+
+  opacity: 0.7;
+  z-index: 2;
+  position: fixed;
+  top: 50%;
+  right: 10px;
 `;
 
-export const Pagination = styled('div')`
-  background-color: #eff5f9;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin: 8px;
-  cursor: pointer;
-  text-align: center;
-  padding-top: 2px;
-
-  :hover {
-    transform: scale(1.2);
-    transition: 0.2s;
+export const ArrowBoxLeft = styled('div')`
+  svg {
+    width: 50px;
+    fill: #34aba3;
   }
+
+  opacity: 0.7;
+  z-index: 2;
+  position: fixed;
+  top: 50%;
+  left: 10px;
 `;
+

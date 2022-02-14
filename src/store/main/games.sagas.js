@@ -12,9 +12,9 @@ import {
   getLastRequestedPage,
   getLastRequestedPageError,
   getLastRequestedPageSuccess,
-  getNextPageWithRequestedQueryParams,
-  getNextPageWithRequestedQueryParamsError,
-  getNextPageWithRequestedQueryParamsSuccess
+  getPaginationPageWithRequestedQueryParams,
+  getPaginationPageWithRequestedQueryParamsError,
+  getPaginationPageWithRequestedQueryParamsSuccess
 } from './mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
@@ -89,29 +89,36 @@ function* workFetchLastRequestedPage(action) {
     baseURL: `${action.payload}`
   });
   try {
-    const gamesFetch = yield call(() => axiosFormatted.get());
-    console.log(gamesFetch.data);
-    yield put(getLastRequestedPageSuccess(gamesFetch.data));
+    const lastPageFetch = yield call(() => axiosFormatted.get());
+    console.log(lastPageFetch.data);
+    yield put(getLastRequestedPageSuccess(lastPageFetch.data));
   } catch (error) {
     yield put(getLastRequestedPageError(error));
   }
 }
 
-function* workFetchNextPage(action) {
-  const axiosFormatted = axios.create({
-    baseURL: `${action.payload.nextPageRequestURL}`
-  });
+function* workFetchPaginationPage(action) {
+  /*const axiosFormatted = axios.create({
+    baseURL: `${action.payload.paginationPageRequestURL}`
+  });*/
+  const params = {
+    page: action.payload.page,
+  };
   try {
-    const nextPageFetch = yield call(() => axiosFormatted.get());
-    console.log(nextPageFetch.data);
+    const paginationPageFetch = yield call(() =>
+      axios.get(`${action.payload.paginationPageRequestURL}`, { params })
+    );
+    /*try {
+      const paginationPageFetch = yield call(() => axiosFormatted.get());*/
+    console.log(paginationPageFetch.data);
     yield put(
-      getNextPageWithRequestedQueryParamsSuccess(
-        nextPageFetch.data,
-        nextPageFetch.request.responseURL
+      getPaginationPageWithRequestedQueryParamsSuccess(
+        paginationPageFetch.data,
+        paginationPageFetch.request.responseURL
       )
     );
   } catch (error) {
-    yield put(getNextPageWithRequestedQueryParamsError(error));
+    yield put(getPaginationPageWithRequestedQueryParamsError(error));
   }
 }
 
@@ -134,7 +141,7 @@ function* gamesSaga() {
     yield takeEvery(getGamePage, workFetchGamePage),
     yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter),
     yield takeEvery(getLastRequestedPage, workFetchLastRequestedPage),
-    yield takeEvery(getNextPageWithRequestedQueryParams, workFetchNextPage)
+    yield takeEvery(getPaginationPageWithRequestedQueryParams, workFetchPaginationPage)
   ]);
 }
 
