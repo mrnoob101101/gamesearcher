@@ -29,7 +29,7 @@ export const Website = styled.a`
   padding-left: 20px;
 `;
 
-export const Metascore = styled.h3`
+export const Metascore = styled.p`
   float: right;
   font-size: calc(10px + 1vw);
   padding-top: 20px;

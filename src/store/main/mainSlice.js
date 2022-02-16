@@ -9,8 +9,8 @@ export const gamesSlice = createSlice({
     status: 'idle',
     currentPage: 1,
     lastRequestURL: '',
-    selectedGenre: 'none',
-    selectedPlatform: 'none',
+    selectedGenre: '',
+    selectedPlatform: '',
     isFiltersOpen: false
   },
   reducers: {

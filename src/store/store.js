@@ -11,14 +11,14 @@ const saga = createSagaMiddleware();
 const persistConfig = {
   key: 'root',
   storage,
-  stateReconciler: autoMergeLevel3,
+  stateReconciler: autoMergeLevel3
 };
 
 const persistedreducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedreducer,
-  middleware: [saga],
+  middleware: [saga]
 });
 saga.run(gamesSaga);
 

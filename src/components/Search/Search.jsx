@@ -42,7 +42,7 @@ export const Search = () => {
   };
 
   return (
-    <>
+    <Box bg={'black'}>
       <Button onClick={handleToggle}>Click Me</Button>
       <Collapse in={isFiltersOpen} animateOpacity>
         <Box
@@ -70,6 +70,6 @@ export const Search = () => {
           </InputGroup>
         </Box>
       </Collapse>
-    </>
+    </Box>
   );
 };

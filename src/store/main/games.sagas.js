@@ -52,7 +52,7 @@ function* workFetchGamesWithFilter(action) {
   };
   console.log('selectedPlatform', action.payload.selectedPlatform);
 
-  if (action.payload.selectedGenre === 'none') {
+  if (action.payload.selectedGenre === '') {
     delete params.genres;
     params.platforms = action.payload.selectedPlatform;
   } else {
@@ -60,7 +60,7 @@ function* workFetchGamesWithFilter(action) {
     params.platforms = action.payload.selectedPlatform;
   }
 
-  if (action.payload.selectedPlatform === 'none') {
+  if (action.payload.selectedPlatform === '') {
     delete params.platforms;
     params.genres = action.payload.selectedGenre;
   } else {
@@ -102,7 +102,7 @@ function* workFetchPaginationPage(action) {
     baseURL: `${action.payload.paginationPageRequestURL}`
   });*/
   const params = {
-    page: action.payload.page,
+    page: action.payload.page
   };
   try {
     const paginationPageFetch = yield call(() =>
