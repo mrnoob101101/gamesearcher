@@ -4,6 +4,7 @@ export const GameInfo = styled.div`
   background: ${(props) => `url(${props.background}) no-repeat center`};
   background-size: cover;
   height: 100vh;
+  font-family: 'Manrope', sans-serif;
 `;
 
 export const DescriptionText = styled.h3`

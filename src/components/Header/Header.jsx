@@ -1,12 +1,20 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { HeaderInner, HeaderStyled } from './Header.styled';
 
 export const Header = () => {
   return (
-    <Flex bg={'tomato'} h={'15vh'} fontSize={'5vh'} py={'3vw'} justify={'space-around'}>
-      <Box>
-        HOME
-      </Box>
-      <Box>GAME LIST</Box>
-    </Flex>
+    <HeaderStyled>
+      <HeaderInner>
+        <Link to={'/home'}>
+          <Box>
+            Home
+          </Box>
+        </Link>
+        <Link to={'/main'}>
+          <Box>Games list</Box>
+        </Link>
+      </HeaderInner>
+    </HeaderStyled>
   );
 };

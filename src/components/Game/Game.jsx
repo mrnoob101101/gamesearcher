@@ -39,7 +39,7 @@ export const Game = () => {
       <>
         <ChakraProvider>
           <GameInfo background={background}>
-            <Link to="/">
+            <Link to="/main">
               <Button m={'3vw'} colorScheme="teal">
                 Back
               </Button>
