@@ -6,7 +6,6 @@ import { MainPage } from './pages/MainPage/MainPage';
 import { HomePage } from './pages/HomePage/HomePage';
 import { GamePage } from './pages/GamePage/GamePage';
 
-
 function App() {
   return (
     <ChakraProvider>
@@ -29,7 +28,6 @@ function App() {
           <Route path="/">
             <HomePage />
           </Route>
-
         </Switch>
       </div>
     </ChakraProvider>

@@ -8,7 +8,6 @@ export const GameInfo = styled.div`
 `;
 
 export const DescriptionText = styled.h3`
-
   color: white;
   background-color: #00728c99;
   margin: 45vh 0 0 0;

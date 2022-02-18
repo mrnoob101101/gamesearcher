@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
 
 export const Introduce = styled.div`
-  background: ${(props) => `url(${props.background}) no-repeat `};
+  background: ${(props) => `url(${props.background}) no-repeat center`};
   background-size: cover;
   height: 70vh;
   font-family: 'Anton', sans-serif;
   color: white;
   font-size: 5em;
-
 `;
 
 export const Slogan = styled.div`
@@ -16,5 +15,4 @@ export const Slogan = styled.div`
   @media (max-width: 800px) {
     padding-left: 2%;
   }
-
 `;

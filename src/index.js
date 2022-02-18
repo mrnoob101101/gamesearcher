@@ -8,7 +8,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 
-
 const persistor = persistStore(store);
 
 ReactDOM.render(
@@ -20,7 +19,6 @@ ReactDOM.render(
             <Route path="/game" component={Game} />
           </Switch>*/}
           <App />
-
         </PersistGate>
       </Provider>
     </React.StrictMode>

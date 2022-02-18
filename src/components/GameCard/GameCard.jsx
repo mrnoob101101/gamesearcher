@@ -15,11 +15,17 @@ export const GameCard = ({ image, name, id, screenshots }) => {
 
   return (
     <CardLink to={`/game/${id}`} onClick={handleClickOnCard} background={image}>
-      <Box textAlign={'center'} color={'white'} fontSize={'1.3em'} bg={'tomato'}
-        opacity={0.8} py={'1vw'} my={'95%'}>
+      <Box
+        textAlign={'center'}
+        color={'white'}
+        fontSize={'1.3em'}
+        bg={'tomato'}
+        opacity={0.8}
+        py={'1vw'}
+        my={'95%'}
+      >
         {name}
       </Box>
     </CardLink>
   );
 };
-

@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 
-
 export const ArrowBoxRight = styled('div')`
   svg {
     width: 50px;
@@ -25,4 +24,3 @@ export const ArrowBoxLeft = styled('div')`
   top: 50%;
   left: 10px;
 `;
-

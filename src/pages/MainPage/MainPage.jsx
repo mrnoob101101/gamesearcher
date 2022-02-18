@@ -1,4 +1,3 @@
-import { Search } from '../../components/Search/Search';
 import { Filter } from '../../components/Filter/Filter';
 import { GamesList } from '../../components/GamesList/GamesList';
 import React from 'react';
@@ -8,7 +7,7 @@ export const MainPage = () => {
   return (
     <>
       <Header />
-      <Search />
+      {/*<Search />*/}
       <Filter />
       <GamesList />
     </>

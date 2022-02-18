@@ -6,7 +6,7 @@ import {
   GameInfo,
   Genre,
   Metascore,
-  Website
+  Website,
 } from './Game.styled';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -20,11 +20,10 @@ import {
   selectMetacriticScore,
   selectName,
   selectReleaseDate,
-  selectWebsite
+  selectWebsite,
 } from '../../store/main/selectors';
 
 export const Game = () => {
-
   const website = useSelector(selectWebsite);
   const metacriticScore = useSelector(selectMetacriticScore);
   const name = useSelector(selectName);

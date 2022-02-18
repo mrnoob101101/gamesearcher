@@ -3,13 +3,11 @@ import React, { useEffect } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import {
   getGames,
-  getLastRequestedPage, getPaginationPageWithRequestedQueryParams
+  getLastRequestedPage,
+  getPaginationPageWithRequestedQueryParams,
 } from '../../store/main/mainSlice';
 import { GameCard } from '../GameCard/GameCard';
-import {
-  ArrowBoxLeft,
-  ArrowBoxRight
-} from './GamesList.styled';
+import { ArrowBoxLeft, ArrowBoxRight } from './GamesList.styled';
 import { ReactComponent as ArrowRightIcon } from '../../assets/arrowRight.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../assets/arrowLeft.svg';
 import { Pagination } from './Pagination/Pagination';
@@ -21,8 +19,10 @@ export const GamesList = () => {
   const games = useSelector((state) => state.games);
   const lastRequestURL = useSelector((state) => state.games.lastRequestURL);
   const nextPageURL = useSelector((state) => state.games.gamesData.next);
-  const previousPageURL = useSelector(state => state.games.gamesData.previous);
-  const state = useSelector(state => state);
+  const previousPageURL = useSelector(
+    (state) => state.games.gamesData.previous
+  );
+  const state = useSelector((state) => state);
 
   let page = useSelector((state) => state.games.currentPage);
   console.log('page', page);
@@ -44,7 +44,9 @@ export const GamesList = () => {
   const handleLoadPreviousPage = () => {
     if (page > 1) {
       page--;
-      dispatch(getPaginationPageWithRequestedQueryParams(previousPageURL, page));
+      dispatch(
+        getPaginationPageWithRequestedQueryParams(previousPageURL, page)
+      );
       console.log(page);
       console.log('Prev page');
     }
@@ -54,8 +56,12 @@ export const GamesList = () => {
     return (
       <>
         <Flex justify={'center'}>
-          <Box w={'3vw'} cursor={'pointer'} bg={'black'}
-            onClick={handleLoadPreviousPage}>
+          <Box
+            w={'3vw'}
+            cursor={'pointer'}
+            bg={'black'}
+            onClick={handleLoadPreviousPage}
+          >
             <ArrowBoxLeft>
               <ArrowLeftIcon />
             </ArrowBoxLeft>
@@ -67,7 +73,6 @@ export const GamesList = () => {
             minH={'90vh'}
             w={'94vw'}
             transform={'perspective(400px)'}
-
           >
             {results.map((item) => {
               return (
@@ -83,8 +88,12 @@ export const GamesList = () => {
               );
             })}
           </Flex>
-          <Box w={'3vw'} cursor={'pointer'} bg={'black'}
-            onClick={handleLoadNextPage}>
+          <Box
+            w={'3vw'}
+            cursor={'pointer'}
+            bg={'black'}
+            onClick={handleLoadNextPage}
+          >
             <ArrowBoxRight>
               <ArrowRightIcon />
             </ArrowBoxRight>
@@ -96,8 +105,9 @@ export const GamesList = () => {
   }
   if (results.length === 0) {
     return (
-      <Box bg={'black'} fontSize={'10em'} minH={'90vh'} textAlign={'center'}>No
-        results</Box>
+      <Box bg={'black'} fontSize={'10em'} minH={'90vh'} textAlign={'center'}>
+        No results
+      </Box>
     );
   } else return null;
 };

@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
 export const PaginationBackPage = styled('div')`
-
-  display: ${(props) => props.pagePropsForStyled <= 0 ? 'none' : 'block'};
+  display: ${(props) => (props.pagePropsForStyled <= 0 ? 'none' : 'block')};
 
   background-color: #0c8880;
   color: white;
@@ -22,8 +21,7 @@ export const PaginationBackPage = styled('div')`
 `;
 
 export const PaginationForwardPage = styled('div')`
-
-  display: ${(props) => props.nextPageURL === null ? 'none' : 'block'};
+  display: ${(props) => (props.nextPageURL === null ? 'none' : 'block')};
   background-color: #0c8880;
   color: white;
   border-radius: 50%;

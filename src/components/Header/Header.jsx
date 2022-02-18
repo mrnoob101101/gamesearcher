@@ -7,9 +7,7 @@ export const Header = () => {
     <HeaderStyled>
       <HeaderInner>
         <Link to={'/home'}>
-          <Box>
-            Home
-          </Box>
+          <Box mx={'2em'}>Home</Box>
         </Link>
         <Link to={'/main'}>
           <Box>Games list</Box>

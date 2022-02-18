@@ -1,4 +1,4 @@
-import {
+/*import {
   Box,
   Button,
   Collapse,
@@ -15,7 +15,7 @@ import { setIsFiltersOpen } from '../../store/main/mainSlice';
 
 export const Search = () => {
   const { isOpen, onToggle } = useDisclosure();
-  let isFiltersOpen = useSelector(state => state.games.isFiltersOpen);
+  let isFiltersOpen = useSelector((state) => state.games.isFiltersOpen);
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
 
@@ -35,7 +35,6 @@ export const Search = () => {
     }
   };
   console.log(isOpen);
-
 
   const handleToggle = () => {
     dispatch(setIsFiltersOpen(!isFiltersOpen));
@@ -72,4 +71,4 @@ export const Search = () => {
       </Collapse>
     </Box>
   );
-};
+};*/

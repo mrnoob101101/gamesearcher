@@ -27,6 +27,5 @@ export const CardLink = styled(Link)`
   :hover {
     transform: scale(0.97);
     transition: 0.3s;
-
   }
 `;

@@ -11,7 +11,7 @@ export const gamesSlice = createSlice({
     lastRequestURL: '',
     selectedGenre: '',
     selectedPlatform: '',
-    isFiltersOpen: false
+    isFiltersOpen: false,
   },
   reducers: {
     getGames(state, action) {
@@ -68,7 +68,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (selectedGenre, selectedPlatform) => {
         return { payload: { selectedGenre, selectedPlatform } };
-      }
+      },
     },
     getGamesWithFilterSuccess: {
       reducer: (state, action) => {
@@ -80,7 +80,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, requestURL) => {
         return { payload: { gamesData, requestURL } };
-      }
+      },
     },
     getGamesWitchFiltersError(state, action) {
       state.status = 'error';
@@ -94,7 +94,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (paginationPageRequestURL, page) => {
         return { payload: { paginationPageRequestURL, page } };
-      }
+      },
     },
     getPaginationPageWithRequestedQueryParamsSuccess: {
       reducer: (state, action) => {
@@ -107,7 +107,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, lastRequestURL) => {
         return { payload: { gamesData, lastRequestURL } };
-      }
+      },
     },
     getPaginationPageWithRequestedQueryParamsError(state, action) {
       state.status = 'error';
@@ -115,8 +115,8 @@ export const gamesSlice = createSlice({
     },
     setIsFiltersOpen(state, action) {
       state.isFiltersOpen = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const {
@@ -136,5 +136,5 @@ export const {
   getPaginationPageWithRequestedQueryParams,
   getPaginationPageWithRequestedQueryParamsSuccess,
   getPaginationPageWithRequestedQueryParamsError,
-  setIsFiltersOpen
+  setIsFiltersOpen,
 } = gamesSlice.actions;

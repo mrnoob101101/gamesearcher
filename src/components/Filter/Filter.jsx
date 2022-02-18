@@ -1,9 +1,10 @@
-import { Box, Button, Select } from '@chakra-ui/react';
+import { Box, Button, Flex, Select } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGames, getGamesWithFilter } from '../../store/main/mainSlice';
 import { useEffect, useState } from 'react';
 import { listOfGenres } from './utils/listOfGenres';
 import { listOfPlatforms } from './utils/listOfPlatforms';
+import { Option } from './Filter.styled';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -14,43 +15,41 @@ export const Filter = () => {
   const selectedPlatform = useSelector((state) => state.games.selectedPlatform);
   const page = useSelector((state) => state.games.currentPage);
 
-  const [genreRadioButtonPosition, setGenreRadioButtonPosition] = useState('');
-  const [platformRadioButtonPosition, setPlatformRadioButtonPosition] =
+  const [genreDropDownMenuPosition, setGenreDropDownMenuPosition] = useState('');
+  const [platformDropDownMenuPosition, setPlatformDropDownMenuPosition] =
     useState('');
 
   const handleClearFilters = () => {
-    setPlatformRadioButtonPosition('');
-    setGenreRadioButtonPosition('');
+    setPlatformDropDownMenuPosition('');
+    setGenreDropDownMenuPosition('');
     dispatch(getGames(page));
   };
 
   useEffect(() => {
-    setGenreRadioButtonPosition(selectedGenre);
-    setPlatformRadioButtonPosition(selectedPlatform);
+    setGenreDropDownMenuPosition(selectedGenre);
+    setPlatformDropDownMenuPosition(selectedPlatform);
     if (selectedGenre === '' && selectedPlatform === '') {
       dispatch(getGames(page));
     }
   });
 
   const handleChangeSelectedGenre = (e) => {
-    setGenreRadioButtonPosition(e.target.value);
+    setGenreDropDownMenuPosition(e.target.value);
     dispatch(getGamesWithFilter(e.target.value, selectedPlatform));
     console.log('targetGenre', e.target.value);
   };
 
   const handleChangeSelectedPlatform = (e) => {
-    setPlatformRadioButtonPosition(e.target.value);
+    setPlatformDropDownMenuPosition(e.target.value);
     dispatch(getGamesWithFilter(selectedGenre, e.target.value));
     console.log('targetPlatform', e.target.value);
   };
 
-  console.log('genreRadioButtonPosition', genreRadioButtonPosition);
+  console.log('genreRadioButtonPosition', genreDropDownMenuPosition);
 
   return (
     <>
-      <Box bg={'black'} color={'white'}
-        flexWrap={'wrap'}>
-
+      <Box bg={'black'} color={'white'}>
         {/*<RadioGroup
 
           value={genreRadioButtonPosition}
@@ -73,25 +72,46 @@ export const Filter = () => {
             })}
           </Stack>
         </RadioGroup>*/}
+        <Flex>
+          <Select
+            placeholder="Select genre"
+            colorScheme={'teal'}
+            onChange={handleChangeSelectedGenre}
+            value={genreDropDownMenuPosition}
+            color={'black'}
+            bg={'tomato'}
+            maxWidth={'30%'}
+            m={'1em 4em 1em 2em'}
+          >
+            {listOfGenres.map((genre) => {
+              return (
+                <Option key={genre.id} value={genre.id}>
+                  {genre.name}
+                </Option>
+              );
+            })}
+          </Select>
 
-        <Select placeholder="Select genre" colorScheme={'teal'} onChange={handleChangeSelectedGenre}
-          value={genreRadioButtonPosition} color={'red'}>
-          {listOfGenres.map((genre) => {
-            return (
-              <option key={genre.id} value={genre.id}>{genre.name}</option>
-            );
-          })}
-        </Select>
-
-        <Select placeholder="Select platform" onChange={handleChangeSelectedPlatform}
-          value={platformRadioButtonPosition} color={'red'}>
-          {listOfPlatforms.map((platform) => {
-            return (
-              <option key={platform.id} value={platform.id}>{platform.name}</option>
-            );
-          })}
-        </Select>
-
+          <Select
+            placeholder="Select platform"
+            onChange={handleChangeSelectedPlatform}
+            value={platformDropDownMenuPosition}
+            color={'black'}
+            bg={'tomato'}
+            maxWidth={'30%'}
+            m={'1em 4em 1em 2em'}
+            /*mx={'4vw'}*/
+          >
+            {listOfPlatforms.map((platform) => {
+              return (
+                <option style={{ backgroundColor: 'green' }} key={platform.id} value={platform.id}>
+                  {platform.name}
+                </option>
+              );
+            })}
+          </Select>
+          <Button colorScheme={'red'} size={'md'} onClick={() => handleClearFilters()}>Clear filters</Button>
+        </Flex>
         {/*<Box>
           <RadioGroup
             onChange={setPlatformRadioButtonPosition}
@@ -115,7 +135,7 @@ export const Filter = () => {
             })}
           </RadioGroup>
         </Box>*/}
-        <Button onClick={() => handleClearFilters()}>Clear filters</Button>
+
       </Box>
     </>
   );
