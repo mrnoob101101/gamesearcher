@@ -17,12 +17,15 @@ code {
   height: 30vw;
 }
 
+@media (max-width: 600px) {
+  .swiper {
+    height: 30vh;
+  }
+}
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  /*background: linear-gradient(#006363, #eeaf9d);*/ /*#006363;*/
-
-  /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;

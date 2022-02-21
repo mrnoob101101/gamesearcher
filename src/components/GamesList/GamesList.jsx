@@ -11,13 +11,13 @@ import { ArrowBoxLeft, ArrowBoxRight } from './GamesList.styled';
 import { ReactComponent as ArrowRightIcon } from '../../assets/arrowRight.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../assets/arrowLeft.svg';
 import { Pagination } from './Pagination/Pagination';
+import { Loader } from '../Loader/Loader';
 
 export const GamesList = () => {
   const dispatch = useDispatch();
 
-  const results = useSelector((state) => state.games?.gamesData.results);
+  const gamesData = useSelector((state) => state.games.gamesData);
   const games = useSelector((state) => state.games);
-  const lastRequestURL = useSelector((state) => state.games.lastRequestURL);
   const nextPageURL = useSelector((state) => state.games.gamesData.next);
   const previousPageURL = useSelector(
     (state) => state.games.gamesData.previous
@@ -27,13 +27,22 @@ export const GamesList = () => {
   let page = useSelector((state) => state.games.currentPage);
   console.log('page', page);
   console.log('state', state);
+
+  console.log('selectedGenre', games.selectedGenre !== '');
+  console.log('selectedPlatform', games.selectedPlatform !== '');
+  console.log(
+    'RRRRRRRR',
+    games.selectedGenre !== '' || games.selectedPlatform !== ''
+  );
+
   useEffect(() => {
-    if (games.selectedGenre !== 'none' || games.selectedPlatform !== 'none') {
-      dispatch(getLastRequestedPage(lastRequestURL));
+    console.log('GGGGGGGG', games.selectedGenre);
+    if (games.selectedGenre !== '' || games.selectedPlatform !== '') {
+      dispatch(getLastRequestedPage(games.lastRequestURL));
     } else {
       dispatch(getGames(page));
     }
-  }, []);
+  }, [page]);
 
   const handleLoadNextPage = () => {
     page++;
@@ -52,7 +61,8 @@ export const GamesList = () => {
     }
   };
 
-  if (games.status === 'success' && results.length !== 0) {
+  if (games.status === 'loading') return <Loader />;
+  if (games.status === 'success' && gamesData.results.length !== 0) {
     return (
       <>
         <Flex justify={'center'}>
@@ -72,9 +82,8 @@ export const GamesList = () => {
             backgroundColor={'black'}
             minH={'90vh'}
             w={'94vw'}
-            transform={'perspective(400px)'}
           >
-            {results.map((item) => {
+            {gamesData.results.map((item) => {
               return (
                 /*<GameCardWrapper >*/
                 <GameCard
@@ -99,15 +108,18 @@ export const GamesList = () => {
             </ArrowBoxRight>
           </Box>
         </Flex>
-        <Pagination />
+        <Pagination
+          handleLoadNextPage={handleLoadNextPage}
+          handleLoadPreviousPage={handleLoadPreviousPage}
+        />
       </>
     );
-  }
-  if (results.length === 0) {
-    return (
-      <Box bg={'black'} fontSize={'10em'} minH={'90vh'} textAlign={'center'}>
-        No results
-      </Box>
-    );
   } else return null;
+  /* if (gamesData.results.length === 0) {
+     return (
+       <Box bg={'black'} fontSize={'10em'} minH={'90vh'} textAlign={'center'}>
+         No results
+       </Box>
+     );
+   } else return null;*/
 };

@@ -11,8 +11,8 @@ export const Introduce = styled.div`
 
 export const Slogan = styled.div`
   line-height: 1.1;
-  padding: 10% 5% 20% 50%;
+  padding: 15% 5% 20% 70%;
   @media (max-width: 800px) {
-    padding-left: 2%;
+    padding: 70% 5% 20% 2%;
   }
 `;

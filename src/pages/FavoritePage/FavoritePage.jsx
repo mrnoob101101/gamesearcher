@@ -1,18 +1,14 @@
-import { Filter } from '../../components/Filter/Filter';
-import { GamesList } from '../../components/GamesList/GamesList';
-import React from 'react';
 import { Header } from '../../components/Header/Header';
+import { Favorites } from '../../components/Favorites/Favorites';
 import { useSelector } from 'react-redux';
 import { Error } from '../../components/Error/Error';
 
-
-export const MainPage = () => {
+export const FavoritePage = () => {
   const status = useSelector((state) => state.games.status);
   if (status === 'error') {
     return (
       <>
         <Header />
-        <Filter />
         <Error />
       </>
     );
@@ -20,9 +16,7 @@ export const MainPage = () => {
   return (
     <>
       <Header />
-      {/*<Search />*/}
-      <Filter />
-      <GamesList />
+      <Favorites />
     </>
   );
 };

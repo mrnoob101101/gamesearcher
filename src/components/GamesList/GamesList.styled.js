@@ -1,23 +1,16 @@
 import styled from '@emotion/styled';
 
-export const ArrowBoxRight = styled('div')`
-  svg {
-    width: 50px;
-  }
-
+export const ArrowBoxRight = styled.div`
+  width: 50px;
   opacity: 0.7;
   z-index: 2;
   position: fixed;
   top: 50%;
-  right: 10px;
+  right: 0;
 `;
 
-export const ArrowBoxLeft = styled('div')`
-  svg {
-    width: 50px;
-    fill: #34aba3;
-  }
-
+export const ArrowBoxLeft = styled.div`
+  width: 50px;
   opacity: 0.7;
   z-index: 2;
   position: fixed;

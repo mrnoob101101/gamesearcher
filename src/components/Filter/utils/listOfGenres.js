@@ -1,5 +1,9 @@
 export const listOfGenres = [
   {
+    id: '',
+    name: '-',
+  },
+  {
     id: 4,
     name: 'Action',
   },

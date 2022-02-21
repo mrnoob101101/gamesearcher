@@ -8,30 +8,13 @@ import {
   PaginationForwardPage,
 } from './Pagination.styled';
 
-export const Pagination = () => {
+export const Pagination = ({ handleLoadNextPage, handleLoadPreviousPage }) => {
   const dispatch = useDispatch();
   const nextPageURL = useSelector((state) => state.games.gamesData.next);
   const previousPageURL = useSelector(
     (state) => state.games.gamesData.previous
   );
   let page = useSelector((state) => state.games.currentPage);
-
-  const handleLoadNextPage = () => {
-    page++;
-    dispatch(getPaginationPageWithRequestedQueryParams(nextPageURL, page));
-    console.log(page);
-  };
-
-  const handleLoadPreviousPage = () => {
-    if (page > 1) {
-      page--;
-      dispatch(
-        getPaginationPageWithRequestedQueryParams(previousPageURL, page)
-      );
-      console.log(page);
-      console.log('Prev page');
-    }
-  };
 
   const handleLoadTwoPagesBack = () => {
     if (page > 2) {

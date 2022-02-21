@@ -1,17 +1,33 @@
-import { Box } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { HeaderInner, HeaderStyled } from './Header.styled';
+import {
+  HeaderInner,
+  HeaderQueries,
+  HeaderStyled,
+  Icon,
+  Logo,
+} from './Header.styled';
+import { ReactComponent as Gamepad } from '../../assets/gamepad.svg';
+import { ReactComponent as Star } from '../../assets/star.svg';
+import { Flex } from '@chakra-ui/react';
 
 export const Header = () => {
   return (
     <HeaderStyled>
+      <Logo to={'/'}>
+        <Gamepad />
+      </Logo>
       <HeaderInner>
-        <Link to={'/home'}>
-          <Box mx={'2em'}>Home</Box>
-        </Link>
-        <Link to={'/main'}>
-          <Box>Games list</Box>
-        </Link>
+        <Flex justify={'space-between'}>
+          <Link to={'/home'}>
+            <HeaderQueries>Home</HeaderQueries>
+          </Link>
+          <Link to={'/main'}>
+            <HeaderQueries>Games list</HeaderQueries>
+          </Link>
+          <Icon to={'/favorites'}>
+            <Star />
+          </Icon>
+        </Flex>
       </HeaderInner>
     </HeaderStyled>
   );

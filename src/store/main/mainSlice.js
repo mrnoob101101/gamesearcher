@@ -4,21 +4,21 @@ export const gamesSlice = createSlice({
   name: 'games',
   initialState: {
     gamesData: {},
-    gamePageData: {},
+    game: {},
     currentGameScreenshots: [],
     status: 'idle',
     currentPage: 1,
     lastRequestURL: '',
     selectedGenre: '',
     selectedPlatform: '',
-    isFiltersOpen: false,
+    favorite: []
   },
   reducers: {
     getGames(state, action) {
       state.currentPage = action.payload;
       state.status = 'loading';
-      state.selectedPlatform = 'none';
-      state.selectedGenre = 'none';
+      state.selectedPlatform = '';
+      state.selectedGenre = '';
       console.log(state.status);
     },
     getGamesSuccess(state, action) {
@@ -30,16 +30,16 @@ export const gamesSlice = createSlice({
       state.status = 'error';
       console.log(action.payload);
     },
-    getGamePage(state) {
+    getGameDetails(state) {
       state.status = 'loading';
       console.log(state.status);
     },
-    getGamePageSuccess(state, action) {
+    getGameDetailsSuccess(state, action) {
       state.status = 'success';
-      state.gamePageData = action.payload;
+      state.game = action.payload;
       console.log('лог из саги', action.payload);
     },
-    getGamePageError(state, action) {
+    getGameDetailsError(state, action) {
       state.status = 'error';
       console.log(action.payload);
     },
@@ -68,7 +68,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (selectedGenre, selectedPlatform) => {
         return { payload: { selectedGenre, selectedPlatform } };
-      },
+      }
     },
     getGamesWithFilterSuccess: {
       reducer: (state, action) => {
@@ -80,7 +80,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, requestURL) => {
         return { payload: { gamesData, requestURL } };
-      },
+      }
     },
     getGamesWitchFiltersError(state, action) {
       state.status = 'error';
@@ -94,7 +94,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (paginationPageRequestURL, page) => {
         return { payload: { paginationPageRequestURL, page } };
-      },
+      }
     },
     getPaginationPageWithRequestedQueryParamsSuccess: {
       reducer: (state, action) => {
@@ -107,25 +107,22 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, lastRequestURL) => {
         return { payload: { gamesData, lastRequestURL } };
-      },
+      }
     },
     getPaginationPageWithRequestedQueryParamsError(state, action) {
       state.status = 'error';
       console.log(action.payload);
-    },
-    setIsFiltersOpen(state, action) {
-      state.isFiltersOpen = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const {
   getGames,
   getGamesSuccess,
   getGamesError,
-  getGamePage,
-  getGamePageError,
-  getGamePageSuccess,
+  getGameDetails,
+  getGameDetailsError,
+  getGameDetailsSuccess,
   getLastRequestedPage,
   getLastRequestedPageSuccess,
   getLastRequestedPageError,
@@ -135,6 +132,5 @@ export const {
   getGamesWitchFiltersError,
   getPaginationPageWithRequestedQueryParams,
   getPaginationPageWithRequestedQueryParamsSuccess,
-  getPaginationPageWithRequestedQueryParamsError,
-  setIsFiltersOpen,
+  getPaginationPageWithRequestedQueryParamsError
 } = gamesSlice.actions;

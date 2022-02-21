@@ -14,18 +14,20 @@ export const Carousel = () => {
   //убираем среди скриношотов постер, который идёт в нулевом элементе
   const filteredScreenshots = screenshots.filter((item, index) => index !== 0);
   SwiperCore.use([Navigation, Pagination]); //конфиг для свайпера скриншотов
+  let slidesPerView = 2;
+  if (window.screen.width < 600) {
+    slidesPerView = 1;
+  }
   return (
     <>
-      <Box background={'#3b3a3f'}>
+      <Box background={'black'}>
         <Swiper
           navigation
           modules={[Navigation, Pagination]}
           spaceBetween={50}
-          slidesPerView={2}
+          slidesPerView={slidesPerView}
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
         >
           {filteredScreenshots.map((item) => {
             return (

@@ -14,12 +14,9 @@ ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          {/*<Switch>
-            <Route path="/game" component={Game} />
-          </Switch>*/}
-          <App />
-        </PersistGate>
+        {/* <PersistGate loading={null} persistor={persistor}>    */}
+        <App />
+        {/*</PersistGate>*/}
       </Provider>
     </React.StrictMode>
   </BrowserRouter>,

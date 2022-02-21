@@ -1,21 +1,10 @@
-/*import {
-  Box,
-  Button,
-  Collapse,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  useDisclosure
-} from '@chakra-ui/react';
-import { ReactComponent as SearchIcon } from '../../assets/searchIcon.svg';
+/*import { ReactComponent as SearchIcon } from "../../assets/searchIcon.svg";*/
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setIsFiltersOpen } from '../../store/main/mainSlice';
+import { useDispatch } from 'react-redux';
+
 
 export const Search = () => {
-  const { isOpen, onToggle } = useDisclosure();
-  let isFiltersOpen = useSelector((state) => state.games.isFiltersOpen);
+
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
 
@@ -34,41 +23,37 @@ export const Search = () => {
       setValue('');
     }
   };
-  console.log(isOpen);
 
-  const handleToggle = () => {
-    dispatch(setIsFiltersOpen(!isFiltersOpen));
-  };
+  /*  <div className="box">
+      <form name="search">
+        <input type="text" className="input" name="txt"
+               onMouseOut="document.search.txt.value = ''">
+      </form>
+      <i className="fas fa-search"></i>
+    </div>*/
 
   return (
-    <Box bg={'black'}>
-      <Button onClick={handleToggle}>Click Me</Button>
-      <Collapse in={isFiltersOpen} animateOpacity>
-        <Box
-          p="40px"
-          color="white"
-          mt="4"
-          bg="teal.500"
-          rounded="md"
-          shadow="md"
-        >
-          <InputGroup>
-            <Input
-              placeholder={'Search your game'}
-              onChange={handleChangeValue}
-              onKeyDown={handleSubmit}
-            />
-            <InputRightElement width="1rem">
-              <IconButton
-                colorScheme="blue"
-                aria-label="Search database"
-                icon={<SearchIcon />}
-                onClick={() => submitByButton()}
-              />
-            </InputRightElement>
-          </InputGroup>
-        </Box>
-      </Collapse>
-    </Box>
+    <SearchBox>
+
+    </SearchBox>
   );
-};*/
+
+};
+
+
+/*
+<InputGroup>
+  <Input
+    placeholder={'Search your game'}
+    onChange={handleChangeValue}
+    onKeyDown={handleSubmit}
+  />
+  <InputRightElement width="1rem">
+    <IconButton
+      colorScheme="blue"
+      aria-label="Search database"
+      icon={<SearchIcon />}
+      onClick={() => submitByButton()}
+    />
+  </InputRightElement>
+</InputGroup>*/

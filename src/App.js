@@ -5,29 +5,17 @@ import { Switch } from 'react-router-dom';
 import { MainPage } from './pages/MainPage/MainPage';
 import { HomePage } from './pages/HomePage/HomePage';
 import { GamePage } from './pages/GamePage/GamePage';
+import { FavoritePage } from './pages/FavoritePage/FavoritePage';
 
 function App() {
   return (
     <ChakraProvider>
       <div className="App">
-        {/*<Header />*/}
-        {/*<Switch>
-          <Route exact path="/" component={Home}>
-
-          </Route>
-          <Route path="/main" component={Main} />
-          <Route path="/game" component={Game} />
-        </Switch>*/}
         <Switch>
-          <Route path="/main">
-            <MainPage />
-          </Route>
-          <Route path="/game">
-            <GamePage />
-          </Route>
-          <Route path="/">
-            <HomePage />
-          </Route>
+          <Route path="/main" component={MainPage} />
+          <Route path="/game" component={GamePage} />
+          <Route path="/favorites" component={FavoritePage} />
+          <Route path="/" component={HomePage} />
         </Switch>
       </div>
     </ChakraProvider>

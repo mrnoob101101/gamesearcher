@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+/*import { createSlice } from '@reduxjs/toolkit';
 
 export const filtersSlice = createSlice({
   name: 'filters',
@@ -38,4 +38,4 @@ export const filtersSlice = createSlice({
       state.currentGameScreenshots = action.payload;
     },
   },
-});
+});*/

@@ -1,22 +1,6 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-/*export const Poster = styled('div')`
-  background: ${(props) => `url(${props.background}) no-repeat center`};
-  background-size: cover;
-  height: 50vh;
-  width: 25em;
-  margin-top: 1vw;
-  /!*border: solid 1px white;*!/
-  transition: 1s all;
-
-  :hover {
-    transform: scale(0.97);
-    transition: 0.3s;
-    rotateY(15deg);
-  }
-`;*/
-
 export const CardLink = styled(Link)`
   background: ${(props) => `url(${props.background}) no-repeat center`};
   background-size: cover;
@@ -27,5 +11,23 @@ export const CardLink = styled(Link)`
   :hover {
     transform: scale(0.97);
     transition: 0.3s;
+  }
+
+  @media (max-width: 600px) {
+    height: 25vh;
+    width: 10em;
+  }
+`;
+
+export const Name = styled.div`
+  text-align: center;
+  color: white;
+  font-size: 1.3em;
+  background: tomato;
+  opacity: 0.8;
+  padding: 0 1vw 0 1vw;
+  margin-top: 95%;
+  @media (max-width: 600px) {
+    font-size: 0.8em;
   }
 `;

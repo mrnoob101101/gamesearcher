@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { call, put, all, takeEvery } from 'redux-saga/effects';
 import {
-  getGamePage,
-  getGamePageSuccess,
+  getGameDetails,
+  getGameDetailsError,
+  getGameDetailsSuccess,
   getGames,
   getGamesError,
   getGamesSuccess,
@@ -32,16 +33,16 @@ function* workFetchGames(action) {
   }
 }
 
-function* workFetchGamePage(action) {
+function* workFetchGameDetails(action) {
   const axiosFormatted = axios.create({
     baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`,
   });
   try {
     const gamePageFetch = yield call(() => axiosFormatted.get());
     console.log(gamePageFetch.data);
-    yield put(getGamePageSuccess(gamePageFetch.data));
+    yield put(getGameDetailsSuccess(gamePageFetch.data));
   } catch (error) {
-    yield put(getGamesError(error));
+    yield put(getGameDetailsError(error));
   }
 }
 
@@ -65,6 +66,14 @@ function* workFetchGamesWithFilter(action) {
     params.genres = action.payload.selectedGenre;
   } else {
     params.platforms = action.payload.selectedPlatform;
+  }
+
+  if (
+    action.payload.selectedGenre === '' &&
+    action.payload.selectedPlatform === ''
+  ) {
+    delete params.genres;
+    delete params.platforms;
   }
 
   try {
@@ -122,22 +131,10 @@ function* workFetchPaginationPage(action) {
   }
 }
 
-/*{
-  params: {
-    key: '58e43edf81094db9b034a89c52461039',
-      genres: 'strategy',
-      platforms: '21',
-      page: 1,
-      search: '',
-      search_exact: true,
-      search_precise: true,
-      ordering: '-metacritic'
-  }
-}*/
 function* gamesSaga() {
   yield all([
     yield takeEvery(getGames, workFetchGames),
-    yield takeEvery(getGamePage, workFetchGamePage),
+    yield takeEvery(getGameDetails, workFetchGameDetails),
     yield takeEvery(getGamesWithFilter, workFetchGamesWithFilter),
     yield takeEvery(getLastRequestedPage, workFetchLastRequestedPage),
     yield takeEvery(

@@ -1,5 +1,9 @@
 export const listOfPlatforms = [
   {
+    id: '',
+    name: '-',
+  },
+  {
     id: 4,
     name: 'PC',
   },

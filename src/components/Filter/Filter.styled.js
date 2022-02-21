@@ -1,9 +1,5 @@
 import styled from '@emotion/styled';
 
-export const StrategyGenre = styled.button`
-  background-color: ${(props) => (props.isGenreChecked ? 'green' : 'blue')};
-`;
-
 export const NintendoSwitch = styled.button`
   background-color: ${(props) =>
     props.isNintendoSwitchChecked ? 'green' : 'blue'};
@@ -15,5 +11,5 @@ export const IndieGenre = styled.button`
 `;
 
 export const Option = styled.option`
-  background-color: green;
+  background-color: #bd5c4b;
 `;
