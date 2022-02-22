@@ -14,7 +14,7 @@ export const Pagination = ({ handleLoadNextPage, handleLoadPreviousPage }) => {
   const previousPageURL = useSelector(
     (state) => state.games.gamesData.previous
   );
-  let page = useSelector((state) => state.games.currentPage);
+  let page = useSelector((state) => state.games.currentPageNumber);
 
   const handleLoadTwoPagesBack = () => {
     if (page > 2) {

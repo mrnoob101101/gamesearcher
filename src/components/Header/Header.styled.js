@@ -37,8 +37,10 @@ export const Icon = styled(Link)`
   fill: #eff5f9;
   width: 1.5em;
   height: 1.5em;
-
   margin: 0.3em 0 0 1.5em;
+  @media (max-width: 600px) {
+    margin-left: 2em;
+  }
 `;
 
 export const HeaderQueries = styled.div`

@@ -8,11 +8,8 @@ import {
   Genre,
   MainText,
   Metascore,
-  Website
+  Website,
 } from './Game.styled';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import { Carousel } from './Carousel/Carousel';
 import React from 'react';
 import {
@@ -22,11 +19,11 @@ import {
   selectMetacriticScore,
   selectName,
   selectReleaseDate,
-  selectWebsite
+  selectWebsite,
 } from '../../store/main/selectors';
 import {
   addToFavorite,
-  deleteFromFavorite
+  deleteFromFavorite,
 } from '../../store/favorite/favoriteSlice';
 import { Loader } from '../Loader/Loader';
 
@@ -41,7 +38,6 @@ export const Game = () => {
   const releaseDate = useSelector(selectReleaseDate);
   const id = useSelector((state) => state.games.game.id);
   const game = useSelector((state) => state.games.game);
-
   const status = useSelector((state) => state.games.status);
   const results = useSelector((state) => state.games.gamesData.results);
   const favoriteGamesList = useSelector(
@@ -50,6 +46,7 @@ export const Game = () => {
 
   const isFavorite =
     favoriteGamesList.findIndex((item) => item.id === id) !== -1;
+
   const handleAddToFavorites = () => {
     const favoriteGame = results.filter((game) => game.id === id);
     if (isFavorite) {

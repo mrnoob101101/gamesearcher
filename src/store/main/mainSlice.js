@@ -7,15 +7,16 @@ export const gamesSlice = createSlice({
     game: {},
     currentGameScreenshots: [],
     status: 'idle',
-    currentPage: 1,
+    currentPageNumber: 1,
     lastRequestURL: '',
     selectedGenre: '',
     selectedPlatform: '',
-    favorite: []
+    searchQuery: '',
+    favorite: [],
   },
   reducers: {
     getGames(state, action) {
-      state.currentPage = action.payload;
+      state.currentPageNumber = action.payload;
       state.status = 'loading';
       state.selectedPlatform = '';
       state.selectedGenre = '';
@@ -64,11 +65,11 @@ export const gamesSlice = createSlice({
         state.status = 'loading';
         state.selectedGenre = action.payload.selectedGenre;
         state.selectedPlatform = action.payload.selectedPlatform;
-        state.currentPage = 1;
+        state.currentPageNumber = 1;
       },
       prepare: (selectedGenre, selectedPlatform) => {
         return { payload: { selectedGenre, selectedPlatform } };
-      }
+      },
     },
     getGamesWithFilterSuccess: {
       reducer: (state, action) => {
@@ -80,7 +81,7 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, requestURL) => {
         return { payload: { gamesData, requestURL } };
-      }
+      },
     },
     getGamesWitchFiltersError(state, action) {
       state.status = 'error';
@@ -90,11 +91,11 @@ export const gamesSlice = createSlice({
       reducer: (state, action) => {
         state.status = 'loading';
         console.log(state.status);
-        state.currentPage = action.payload.page;
+        state.currentPageNumber = action.payload.page;
       },
       prepare: (paginationPageRequestURL, page) => {
         return { payload: { paginationPageRequestURL, page } };
-      }
+      },
     },
     getPaginationPageWithRequestedQueryParamsSuccess: {
       reducer: (state, action) => {
@@ -107,13 +108,45 @@ export const gamesSlice = createSlice({
       },
       prepare: (gamesData, lastRequestURL) => {
         return { payload: { gamesData, lastRequestURL } };
-      }
+      },
     },
     getPaginationPageWithRequestedQueryParamsError(state, action) {
       state.status = 'error';
       console.log(action.payload);
-    }
-  }
+    },
+    getSearchedGames(state, action) {
+      state.status = 'loading';
+      state.searchQuery = action.payload;
+      state.currentPageNumber = 1;
+      console.log(state.status);
+    },
+    getSearchedGamesSuccess: {
+      reducer: (state, action) => {
+        state.status = 'success';
+        console.log(state.status);
+        state.gamesData = action.payload.gamesData;
+        state.lastRequestURL = action.payload.requestURL;
+      },
+      prepare: (gamesData, requestURL) => {
+        return { payload: { gamesData, requestURL } };
+      },
+    },
+
+    /* reducer: (state, action) => {
+       state.status = 'success';
+       console.log(state.status);
+       state.gamesData = action.payload.gamesData;
+       state.lastRequestURL = action.payload.requestURL;
+     },
+     prepare: (gamesData, requestURL) => {
+       return { payload: { gamesData, requestURL } };
+     },*/
+
+    getSearchedGamesError(state, action) {
+      state.status = 'error';
+      console.log(action.payload);
+    },
+  },
 });
 
 export const {
@@ -132,5 +165,8 @@ export const {
   getGamesWitchFiltersError,
   getPaginationPageWithRequestedQueryParams,
   getPaginationPageWithRequestedQueryParamsSuccess,
-  getPaginationPageWithRequestedQueryParamsError
+  getPaginationPageWithRequestedQueryParamsError,
+  getSearchedGames,
+  getSearchedGamesSuccess,
+  getSearchedGamesError,
 } = gamesSlice.actions;

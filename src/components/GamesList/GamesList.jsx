@@ -24,20 +24,19 @@ export const GamesList = () => {
   );
   const state = useSelector((state) => state);
 
-  let page = useSelector((state) => state.games.currentPage);
+  let page = useSelector((state) => state.games.currentPageNumber);
   console.log('page', page);
   console.log('state', state);
 
   console.log('selectedGenre', games.selectedGenre !== '');
   console.log('selectedPlatform', games.selectedPlatform !== '');
-  console.log(
-    'RRRRRRRR',
-    games.selectedGenre !== '' || games.selectedPlatform !== ''
-  );
 
   useEffect(() => {
-    console.log('GGGGGGGG', games.selectedGenre);
-    if (games.selectedGenre !== '' || games.selectedPlatform !== '') {
+    if (
+      games.selectedGenre !== '' ||
+      games.selectedPlatform !== '' ||
+      games.searchQuery !== ''
+    ) {
       dispatch(getLastRequestedPage(games.lastRequestURL));
     } else {
       dispatch(getGames(page));
@@ -60,6 +59,16 @@ export const GamesList = () => {
       console.log('Prev page');
     }
   };
+
+  console.log(gamesData.results?.length);
+
+  if (gamesData.results?.length === 0) {
+    return (
+      <Box bg={'black'} fontSize={'3em'} minH={'90vh'} textAlign={'center'}>
+        No results
+      </Box>
+    );
+  }
 
   if (games.status === 'loading') return <Loader />;
   if (games.status === 'success' && gamesData.results.length !== 0) {
@@ -115,11 +124,4 @@ export const GamesList = () => {
       </>
     );
   } else return null;
-  /* if (gamesData.results.length === 0) {
-     return (
-       <Box bg={'black'} fontSize={'10em'} minH={'90vh'} textAlign={'center'}>
-         No results
-       </Box>
-     );
-   } else return null;*/
 };

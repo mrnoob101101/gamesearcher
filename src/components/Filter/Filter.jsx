@@ -12,7 +12,7 @@ export const Filter = () => {
   console.log('STATE FROM FILTER', state);
   const selectedGenre = useSelector((state) => state.games.selectedGenre);
   const selectedPlatform = useSelector((state) => state.games.selectedPlatform);
-  const page = useSelector((state) => state.games.currentPage);
+  const page = useSelector((state) => state.games.currentPageNumber);
 
   const [genreDropDownMenuPosition, setGenreDropDownMenuPosition] =
     useState('');

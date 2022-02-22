@@ -24,6 +24,6 @@ saga.run(gamesSaga);*/
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: [saga]
+  middleware: [saga],
 });
 saga.run(gamesSaga);

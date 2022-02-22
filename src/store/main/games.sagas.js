@@ -16,6 +16,9 @@ import {
   getPaginationPageWithRequestedQueryParams,
   getPaginationPageWithRequestedQueryParamsError,
   getPaginationPageWithRequestedQueryParamsSuccess,
+  getSearchedGames,
+  getSearchedGamesError,
+  getSearchedGamesSuccess,
 } from './mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
@@ -49,9 +52,7 @@ function* workFetchGameDetails(action) {
 function* workFetchGamesWithFilter(action) {
   const params = {
     key: '58e43edf81094db9b034a89c52461039',
-    /*page: 1*/
   };
-  console.log('selectedPlatform', action.payload.selectedPlatform);
 
   if (action.payload.selectedGenre === '') {
     delete params.genres;
@@ -107,9 +108,6 @@ function* workFetchLastRequestedPage(action) {
 }
 
 function* workFetchPaginationPage(action) {
-  /*const axiosFormatted = axios.create({
-    baseURL: `${action.payload.paginationPageRequestURL}`
-  });*/
   const params = {
     page: action.payload.page,
   };
@@ -131,6 +129,32 @@ function* workFetchPaginationPage(action) {
   }
 }
 
+function* workFetchSearchedGames(action) {
+  const params = {
+    key: '58e43edf81094db9b034a89c52461039',
+    search: action.payload,
+    search_precise: true,
+    search_exact: true,
+    ordering: 'rating',
+  };
+  try {
+    const searchedGamesFetch = yield call(() =>
+      axios.get('https://api.rawg.io/api/games', { params })
+    );
+    /*try {
+      const paginationPageFetch = yield call(() => axiosFormatted.get());*/
+    console.log(searchedGamesFetch.data);
+    yield put(
+      getSearchedGamesSuccess(
+        searchedGamesFetch.data,
+        searchedGamesFetch.request.responseURL
+      )
+    );
+  } catch (error) {
+    yield put(getSearchedGamesError(error));
+  }
+}
+
 function* gamesSaga() {
   yield all([
     yield takeEvery(getGames, workFetchGames),
@@ -141,6 +165,7 @@ function* gamesSaga() {
       getPaginationPageWithRequestedQueryParams,
       workFetchPaginationPage
     ),
+    yield takeEvery(getSearchedGames, workFetchSearchedGames),
   ]);
 }
 

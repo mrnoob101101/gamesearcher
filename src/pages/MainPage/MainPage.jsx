@@ -5,7 +5,6 @@ import { Header } from '../../components/Header/Header';
 import { useSelector } from 'react-redux';
 import { Error } from '../../components/Error/Error';
 
-
 export const MainPage = () => {
   const status = useSelector((state) => state.games.status);
   if (status === 'error') {
