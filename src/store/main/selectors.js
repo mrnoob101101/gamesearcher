@@ -1,7 +1,9 @@
-export const selectGenres = (state) => state.games.game.genres;
-export const selectBackground = (state) => state.games.game.background_image;
-export const selectDescription = (state) => state.games.game.description_raw;
-export const selectName = (state) => state.games.game.name;
-export const selectMetacriticScore = (state) => state.games.game.metacritic;
-export const selectWebsite = (state) => state.games.game.website;
-export const selectReleaseDate = (state) => state.games.game.released;
+export const selectResults = (state) => state.games.gamesData.results;
+export const selectNextPageURL = (state) => state.games.gamesData.next;
+export const selectPreviousPageURL = (state) => state.games.gamesData.previous;
+export const selectPage = (state) => state.games.currentPageNumber;
+export const selectChosenGenre = (state) => state.games.selectedGenre;
+export const selectChosenPlatform = (state) => state.games.selectedPlatform;
+export const selectScreenshots = (state) => state.games.currentGameScreenshots;
+export const selectGame = (state) => state.games.game;
+export const selectStatus = (state) => state.games.status;

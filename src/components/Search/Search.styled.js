@@ -28,7 +28,7 @@ export const Input = styled.input`
   width: 60px;
   height: 60px;
   background: none;
-  border: 4px solid #ffd52d /*#72c9c7*/;
+  border: 4px solid #ffd52d;
   border-radius: 50px;
   box-sizing: border-box;
   font-family: Magneto sans-serif;

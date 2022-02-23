@@ -13,7 +13,6 @@ export const Search = ({ handleClearFilters }) => {
   const handleSubmit = (e) => {
     if (e.keyCode === 13 && value) {
       dispatch(getSearchedGames(value.trim()));
-      /*if (e.code === 'Enter' && value.*/
       setValue('');
     }
   };

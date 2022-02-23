@@ -4,7 +4,7 @@ import {
   HeaderQueries,
   HeaderStyled,
   Icon,
-  Logo
+  Logo,
 } from './Header.styled';
 import { ReactComponent as Gamepad } from '../../assets/gamepad.svg';
 import { ReactComponent as Star } from '../../assets/star.svg';

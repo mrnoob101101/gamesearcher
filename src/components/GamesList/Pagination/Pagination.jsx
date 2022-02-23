@@ -7,14 +7,17 @@ import {
   PaginationCurrentPage,
   PaginationForwardPage,
 } from './Pagination.styled';
+import {
+  selectNextPageURL,
+  selectPage,
+  selectPreviousPageURL,
+} from '../../../store/main/selectors';
 
 export const Pagination = ({ handleLoadNextPage, handleLoadPreviousPage }) => {
   const dispatch = useDispatch();
-  const nextPageURL = useSelector((state) => state.games.gamesData.next);
-  const previousPageURL = useSelector(
-    (state) => state.games.gamesData.previous
-  );
-  let page = useSelector((state) => state.games.currentPageNumber);
+  const nextPageURL = useSelector(selectNextPageURL);
+  const previousPageURL = useSelector(selectPreviousPageURL);
+  let page = useSelector(selectPage);
 
   const handleLoadTwoPagesBack = () => {
     if (page > 2) {

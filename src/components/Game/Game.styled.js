@@ -21,10 +21,6 @@ export const MainText = styled.p`
   }
 `;
 
-/*px={'5vw'}
-fontSize="6xl"
-backgroundColor={'#00728c99'}*/
-
 export const DescriptionText = styled.p`
   color: white;
   background-color: #00728c99;
@@ -46,6 +42,11 @@ export const DescriptionText = styled.p`
   ::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
   }
+`;
+export const GameDetails = styled.div`
+  background: black;
+  color: white;
+  padding: 0 1vw 0 1vw;
 `;
 
 export const Genre = styled.span`

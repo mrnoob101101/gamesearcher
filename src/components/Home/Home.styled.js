@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Swiper } from 'swiper/react';
 
 export const Introduce = styled.div`
   background: ${(props) => `url(${props.background}) no-repeat center`};
@@ -18,15 +17,6 @@ export const Slogan = styled.div`
   }
 `;
 
-export const SwiperWrap = styled(Swiper)`
-  width: 80%;
-  height: 40vw;
-
-  @media (max-width: 600px) {
-    height: 35vh;
-  }
-`;
-
 export const Example = styled.div`
   display: flex;
   justify-content: center;
@@ -40,5 +30,11 @@ export const Example = styled.div`
 `;
 
 export const SliderBox = styled.div`
-  background: black /*linear-gradient(black, white)*/;
+  background: black;
+`;
+
+export const TextWrap = styled.div`
+  font-size: 0.45em;
+  padding: 0.3em 0.8em 0.3em 0.8em;
+  line-height: 1;
 `;

@@ -4,13 +4,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { useSelector } from 'react-redux';
-import { Img } from './Carousel.styled';
+import { Img } from './CarouselOfScreenshots.styled';
 import { Box } from '@chakra-ui/react';
+import { selectScreenshots } from '../../../store/main/selectors';
 
-export const Carousel = () => {
-  const screenshots = useSelector(
-    (state) => state.games?.currentGameScreenshots
-  );
+export const CarouselOfScreenshots = () => {
+  const screenshots = useSelector(selectScreenshots);
   //убираем среди скриношотов постер, который идёт в нулевом элементе
   const filteredScreenshots = screenshots.filter((item, index) => index !== 0);
   SwiperCore.use([Navigation, Pagination]); //конфиг для свайпера скриншотов

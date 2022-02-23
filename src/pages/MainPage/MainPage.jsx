@@ -5,16 +5,17 @@ import { Header } from '../../components/Header/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { Error } from '../../components/Error/Error';
 import { getGames } from '../../store/main/mainSlice';
+import { selectPage, selectStatus } from '../../store/main/selectors';
 
 export const MainPage = () => {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.games.status);
+  const status = useSelector(selectStatus);
+  let page = useSelector(selectPage);
 
   const [genreDropDownMenuPosition, setGenreDropDownMenuPosition] =
     useState(''); //Подъем состояния из компонента Filter
   const [platformDropDownMenuPosition, setPlatformDropDownMenuPosition] =
     useState('');
-  let page = useSelector((state) => state.games.currentPageNumber);
 
   const handleClearFilters = () => {
     setGenreDropDownMenuPosition('');

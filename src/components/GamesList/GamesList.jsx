@@ -1,30 +1,37 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import {
   getGames,
   getLastRequestedPage,
   getPaginationPageWithRequestedQueryParams,
 } from '../../store/main/mainSlice';
 import { GameCard } from '../GameCard/GameCard';
-import { ArrowBoxLeft, ArrowBoxRight } from './GamesList.styled';
+import {
+  ArrowBoxLeft,
+  ArrowBoxRight,
+  ArrowWrapper,
+  CardsContainer,
+  Warning,
+} from './GamesList.styled';
 import { ReactComponent as ArrowRightIcon } from '../../assets/arrowRight.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../assets/arrowLeft.svg';
 import { Pagination } from './Pagination/Pagination';
 import { Loader } from '../Loader/Loader';
+import {
+  selectNextPageURL,
+  selectPage,
+  selectPreviousPageURL,
+  selectResults,
+} from '../../store/main/selectors';
 
 export const GamesList = () => {
   const dispatch = useDispatch();
-
-  const gamesData = useSelector((state) => state.games.gamesData);
   const games = useSelector((state) => state.games);
-  const nextPageURL = useSelector((state) => state.games.gamesData.next);
-  const previousPageURL = useSelector(
-    (state) => state.games.gamesData.previous
-  );
-  let page = useSelector((state) => state.games.currentPageNumber);
-  console.log('page', page);
-
+  const results = useSelector(selectResults);
+  const nextPageURL = useSelector(selectNextPageURL);
+  const previousPageURL = useSelector(selectPreviousPageURL);
+  let page = useSelector(selectPage);
 
   useEffect(() => {
     if (games.selectedGenre || games.selectedPlatform || games.searchQuery) {
@@ -37,7 +44,6 @@ export const GamesList = () => {
   const handleLoadNextPage = () => {
     page++;
     dispatch(getPaginationPageWithRequestedQueryParams(nextPageURL, page));
-    console.log(page);
   };
 
   const handleLoadPreviousPage = () => {
@@ -46,46 +52,26 @@ export const GamesList = () => {
       dispatch(
         getPaginationPageWithRequestedQueryParams(previousPageURL, page)
       );
-      console.log(page);
-      console.log('Prev page');
     }
   };
 
-  console.log(gamesData.results?.length);
-
-  if (gamesData.results?.length === 0) {
-    return (
-      <Box bg={'black'} fontSize={'3em'} minH={'90vh'} textAlign={'center'}>
-        No results
-      </Box>
-    );
+  if (results?.length === 0) {
+    return <Warning>No results</Warning>;
   }
 
   if (games.status === 'loading') return <Loader />;
-  if (games.status === 'success' && gamesData.results.length !== 0) {
+  if (games.status === 'success' && results.length !== 0) {
     return (
       <>
         <Flex justify={'center'}>
-          <Box
-            w={'3vw'}
-            cursor={'pointer'}
-            bg={'black'}
-            onClick={handleLoadPreviousPage}
-          >
+          <ArrowWrapper onClick={handleLoadPreviousPage}>
             <ArrowBoxLeft>
               <ArrowLeftIcon />
             </ArrowBoxLeft>
-          </Box>
-          <Flex
-            justifyContent={'space-around'}
-            flexWrap={'wrap'}
-            backgroundColor={'black'}
-            minH={'90vh'}
-            w={'94vw'}
-          >
-            {gamesData.results.map((item) => {
+          </ArrowWrapper>
+          <CardsContainer>
+            {results.map((item) => {
               return (
-                /*<GameCardWrapper >*/
                 <GameCard
                   key={item.id}
                   image={item.background_image}
@@ -93,20 +79,14 @@ export const GamesList = () => {
                   id={item.id}
                   screenshots={item.short_screenshots}
                 />
-                /*</GameCardWrapper>*/
               );
             })}
-          </Flex>
-          <Box
-            w={'3vw'}
-            cursor={'pointer'}
-            bg={'black'}
-            onClick={handleLoadNextPage}
-          >
+          </CardsContainer>
+          <ArrowWrapper onClick={handleLoadNextPage}>
             <ArrowBoxRight>
               <ArrowRightIcon />
             </ArrowBoxRight>
-          </Box>
+          </ArrowWrapper>
         </Flex>
         <Pagination
           handleLoadNextPage={handleLoadNextPage}
