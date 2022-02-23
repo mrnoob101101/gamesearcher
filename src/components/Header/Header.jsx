@@ -4,14 +4,14 @@ import {
   HeaderQueries,
   HeaderStyled,
   Icon,
-  Logo,
+  Logo
 } from './Header.styled';
 import { ReactComponent as Gamepad } from '../../assets/gamepad.svg';
 import { ReactComponent as Star } from '../../assets/star.svg';
 import { Flex } from '@chakra-ui/react';
 import { Search } from '../Search/Search';
 
-export const Header = () => {
+export const Header = ({ handleClearFilters }) => {
   return (
     <HeaderStyled>
       <Logo to={'/'}>
@@ -29,7 +29,7 @@ export const Header = () => {
             <Star />
           </Icon>
         </Flex>
-        <Search />
+        <Search handleClearFilters={handleClearFilters} />
       </HeaderInner>
     </HeaderStyled>
   );

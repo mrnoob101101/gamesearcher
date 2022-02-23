@@ -1,29 +1,23 @@
 import { Box, Button, Flex, Select, Text } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGames, getGamesWithFilter } from '../../store/main/mainSlice';
-import { useEffect, useState } from 'react';
+import { getGamesWithFilter } from '../../store/main/mainSlice';
+import { useEffect } from 'react';
 import { listOfGenres } from './utils/listOfGenres';
 import { listOfPlatforms } from './utils/listOfPlatforms';
 
-export const Filter = () => {
+export const Filter = ({
+  setGenreDropDownMenuPosition,
+  setPlatformDropDownMenuPosition,
+  handleClearFilters,
+  genreDropDownMenuPosition,
+  platformDropDownMenuPosition,
+}) => {
   const dispatch = useDispatch();
 
   const state = useSelector((state) => state);
   console.log('STATE FROM FILTER', state);
   const selectedGenre = useSelector((state) => state.games.selectedGenre);
   const selectedPlatform = useSelector((state) => state.games.selectedPlatform);
-  const page = useSelector((state) => state.games.currentPageNumber);
-
-  const [genreDropDownMenuPosition, setGenreDropDownMenuPosition] =
-    useState('');
-  const [platformDropDownMenuPosition, setPlatformDropDownMenuPosition] =
-    useState('');
-
-  const handleClearFilters = () => {
-    setGenreDropDownMenuPosition('');
-    setPlatformDropDownMenuPosition('');
-    dispatch(getGames(page));
-  };
 
   useEffect(() => {
     setGenreDropDownMenuPosition(selectedGenre);
@@ -33,16 +27,12 @@ export const Filter = () => {
   const handleChangeSelectedGenre = (e) => {
     setGenreDropDownMenuPosition(e.target.value);
     dispatch(getGamesWithFilter(e.target.value, selectedPlatform));
-    console.log('targetGenre', e.target.value);
   };
 
   const handleChangeSelectedPlatform = (e) => {
     setPlatformDropDownMenuPosition(e.target.value);
     dispatch(getGamesWithFilter(selectedGenre, e.target.value));
-    console.log('targetPlatform', e.target.value);
   };
-
-  console.log('genreDropDownMenuPosition', genreDropDownMenuPosition);
 
   return (
     <>
@@ -94,7 +84,7 @@ export const Filter = () => {
             m={'1em 5vw 1em 5vw'}
             bg={'tomato'}
             size={'md'}
-            onClick={() => handleClearFilters()}
+            onClick={handleClearFilters}
           >
             Clear filters
           </Button>

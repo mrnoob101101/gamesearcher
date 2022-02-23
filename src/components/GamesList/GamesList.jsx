@@ -22,21 +22,12 @@ export const GamesList = () => {
   const previousPageURL = useSelector(
     (state) => state.games.gamesData.previous
   );
-  const state = useSelector((state) => state);
-
   let page = useSelector((state) => state.games.currentPageNumber);
   console.log('page', page);
-  console.log('state', state);
 
-  console.log('selectedGenre', games.selectedGenre !== '');
-  console.log('selectedPlatform', games.selectedPlatform !== '');
 
   useEffect(() => {
-    if (
-      games.selectedGenre !== '' ||
-      games.selectedPlatform !== '' ||
-      games.searchQuery !== ''
-    ) {
+    if (games.selectedGenre || games.selectedPlatform || games.searchQuery) {
       dispatch(getLastRequestedPage(games.lastRequestURL));
     } else {
       dispatch(getGames(page));

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
-export const Search = () => {
+export const Search = ({ handleClearFilters }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
 
@@ -29,6 +29,7 @@ export const Search = () => {
 
   const handleClick = () => {
     history.push('/main');
+    handleClearFilters();
   };
 
   return (
@@ -43,25 +44,3 @@ export const Search = () => {
     </SearchBox>
   );
 };
-
-/*
-<InputGroup>
-  <Input
-    placeholder={'Search your game'}
-    onChange={handleChangeValue}
-    onKeyDown={handleSubmit}
-  />
-  <InputRightElement width="1rem">
-    <IconButton
-      colorScheme="blue"
-      aria-label="Search database"
-      icon={<SearchIcon />}
-      onClick={() => submitByButton()}
-    />
-  </InputRightElement>
-</InputGroup>*/
-
-/*<form>
-  <input type="text" onChange={handleChangeValue} onKeyDown={handleSubmit} />
-</form>
-<button onClick={submitByButton}>Add</button>*/
