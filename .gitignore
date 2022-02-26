@@ -11,6 +11,7 @@
 .prettierignore
 .prettierrc.json
 .eslintrc.json
+.env
 
 # misc
 .DS_Store

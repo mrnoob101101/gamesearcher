@@ -21,26 +21,21 @@ export const ArrowBoxLeft = styled.div`
 export const ArrowWrapper = styled.div`
   width: 3vw;
   cursor: pointer;
-  background: black;
+  background: var(--background);
 `;
 
 export const Warning = styled.div`
-  background: black;
+  background: var(--background);
   font-size: 3em;
   min-height: 90vh;
   text-align: center;
 `;
 
-/*justifyContent={'space-around'}
-flexWrap={'wrap'}
-backgroundColor={'black'}
-minH={'90vh'}
-w={'94vw'}*/
 export const CardsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  background-color: black;
+  background: var(--background);
   min-height: 90vh;
   width: 94vw;
 `;

@@ -5,7 +5,7 @@ export const Introduce = styled.div`
   background-size: cover;
   height: 70vh;
   font-family: 'Anton', sans-serif;
-  color: white;
+  color: var(--font-color);
   font-size: 5em;
 `;
 
@@ -21,7 +21,7 @@ export const Example = styled.div`
   display: flex;
   justify-content: center;
   background: black;
-  color: white;
+  color: var(--font-color);
   font-size: 2em;
   padding-top: 0.5em;
   @media (max-width: 600px) {

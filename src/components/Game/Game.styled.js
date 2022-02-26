@@ -44,7 +44,7 @@ export const DescriptionText = styled.p`
   }
 `;
 export const GameDetails = styled.div`
-  background: black;
+  background: var(--background);
   color: white;
   padding: 0 1vw 0 1vw;
 `;

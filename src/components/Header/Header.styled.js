@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 
 export const HeaderStyled = styled.div`
   display: flex;
-  /* justify-content: space-around;*/
   font-size: 3vh;
-  color: white;
-  background-color: black;
+  color: var(--font-color);
+  background-color: var(--background);
   height: 5vh;
   padding: 0 5% 3em 5%;
   font-family: 'Manrope', sans-serif;
@@ -27,14 +26,14 @@ export const HeaderInner = styled.div`
 
 export const Logo = styled(Link)`
   display: flex;
-  fill: #eff5f9;
+  fill: var(--font-color);
   width: 2em;
   height: 2em;
 `;
 
 export const Icon = styled(Link)`
   display: flex;
-  fill: #eff5f9;
+  fill: var(--font-color);
   width: 1.5em;
   height: 1.5em;
   margin: 0.3em 0 0 1.5em;

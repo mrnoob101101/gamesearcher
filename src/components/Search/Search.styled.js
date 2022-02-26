@@ -33,7 +33,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   font-family: Magneto sans-serif;
   font-size: 26px;
-  color: white;
+  color: var(--font-color);
   outline: none;
   transition: 0.5s;
   position: absolute;
@@ -51,7 +51,6 @@ export const Icon = styled.div`
   color: #ffd52d;
   transition: 0.2s;
   margin-top: 30px;
-  /*position: absolute;*/
   @media (max-width: 600px) {
     font-size: 15px;
     margin-top: 17px;

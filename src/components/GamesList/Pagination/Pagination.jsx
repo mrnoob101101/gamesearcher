@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   PaginationBackPage,
   PaginationCurrentPage,
-  PaginationForwardPage,
+  PaginationForwardPage
 } from './Pagination.styled';
 import {
   selectNextPageURL,
   selectPage,
-  selectPreviousPageURL,
+  selectPreviousPageURL
 } from '../../../store/main/selectors';
 
 export const Pagination = ({ handleLoadNextPage, handleLoadPreviousPage }) => {
@@ -34,7 +34,7 @@ export const Pagination = ({ handleLoadNextPage, handleLoadPreviousPage }) => {
   };
 
   return (
-    <Flex justifyContent={'center'} bg={'black'}>
+    <Flex justifyContent={'center'} bg={'var(--background)'}>
       <PaginationBackPage
         onClick={handleLoadTwoPagesBack}
         pagePropsForStyled={page - 2}

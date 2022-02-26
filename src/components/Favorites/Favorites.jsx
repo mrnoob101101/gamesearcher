@@ -9,7 +9,7 @@ export const Favorites = () => {
   if (favoriteList.length === 0) {
     return (
       <Wrap>
-        <Heading color={'white'}> No favorite games yet </Heading>
+        <Heading color={'var(--font-color)'}> No favorite games yet </Heading>
       </Wrap>
     );
   }

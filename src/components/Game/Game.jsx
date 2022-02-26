@@ -9,18 +9,18 @@ import {
   Genre,
   MainText,
   Metascore,
-  Website,
+  Website
 } from './Game.styled';
 import { CarouselOfScreenshots } from './Carousel/CarouselOfScreenshots';
 import React from 'react';
 import {
   selectGame,
   selectResults,
-  selectStatus,
+  selectStatus
 } from '../../store/main/selectors';
 import {
   addToFavorite,
-  deleteFromFavorite,
+  deleteFromFavorite
 } from '../../store/favorite/favoriteSlice';
 import { Loader } from '../Loader/Loader';
 
@@ -82,5 +82,5 @@ export const Game = () => {
         </ChakraProvider>
       </>
     );
-  }
+  } else return null;
 };

@@ -10,6 +10,3 @@ export const IndieGenre = styled.button`
   background-color: ${(props) => (props.isGenreChecked ? 'green' : 'blue')};
 `;
 
-export const Option = styled.option`
-  background-color: #bd5c4b;
-`;

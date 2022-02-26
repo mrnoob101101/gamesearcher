@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const PaginationBackPage = styled('div')`
   display: ${(props) => (props.pagePropsForStyled <= 0 ? 'none' : 'block')};
   background-color: #0c8880;
-  color: white;
+  color: var(--font-color);
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -22,7 +22,7 @@ export const PaginationBackPage = styled('div')`
 export const PaginationForwardPage = styled('div')`
   display: ${(props) => (props.nextPageURL === null ? 'none' : 'block')};
   background-color: #0c8880;
-  color: white;
+  color: var(--font-color);
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -40,7 +40,7 @@ export const PaginationForwardPage = styled('div')`
 
 export const PaginationCurrentPage = styled('div')`
   background-color: #385451;
-  color: white;
+  color: var(--font-color);
   border-radius: 50%;
   border: solid 1px;
   width: 30px;

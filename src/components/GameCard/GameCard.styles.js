@@ -21,9 +21,9 @@ export const CardLink = styled(Link)`
 
 export const Name = styled.div`
   text-align: center;
-  color: white;
+  color: var(--font-color);
   font-size: 1.3em;
-  background: tomato;
+  background: var(--primary);
   opacity: 0.8;
   padding: 0 1vw 0 1vw;
   margin-top: 95%;

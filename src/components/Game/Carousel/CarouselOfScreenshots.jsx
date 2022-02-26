@@ -19,7 +19,7 @@ export const CarouselOfScreenshots = () => {
   }
   return (
     <>
-      <Box background={'black'}>
+      <Box background={'var(--background)'}>
         <Swiper
           navigation
           modules={[Navigation, Pagination]}

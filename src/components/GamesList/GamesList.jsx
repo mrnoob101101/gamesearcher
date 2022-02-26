@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import {
   getGames,
   getLastRequestedPage,
-  getPaginationPageWithRequestedQueryParams,
+  getPaginationPageWithRequestedQueryParams
 } from '../../store/main/mainSlice';
 import { GameCard } from '../GameCard/GameCard';
 import {
@@ -12,7 +12,7 @@ import {
   ArrowBoxRight,
   ArrowWrapper,
   CardsContainer,
-  Warning,
+  Warning
 } from './GamesList.styled';
 import { ReactComponent as ArrowRightIcon } from '../../assets/arrowRight.svg';
 import { ReactComponent as ArrowLeftIcon } from '../../assets/arrowLeft.svg';
@@ -22,7 +22,7 @@ import {
   selectNextPageURL,
   selectPage,
   selectPreviousPageURL,
-  selectResults,
+  selectResults
 } from '../../store/main/selectors';
 
 export const GamesList = () => {

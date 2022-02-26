@@ -6,7 +6,7 @@ import { listOfGenres } from './helpers/listOfGenres';
 import { listOfPlatforms } from './helpers/listOfPlatforms';
 import {
   selectChosenGenre,
-  selectChosenPlatform,
+  selectChosenPlatform
 } from '../../store/main/selectors';
 
 export const Filter = ({
@@ -14,7 +14,7 @@ export const Filter = ({
   setPlatformDropDownMenuPosition,
   handleClearFilters,
   genreDropDownMenuPosition,
-  platformDropDownMenuPosition,
+  platformDropDownMenuPosition
 }) => {
   const dispatch = useDispatch();
   const selectedGenre = useSelector(selectChosenGenre);
@@ -37,7 +37,7 @@ export const Filter = ({
 
   return (
     <>
-      <Flex bg={'black'} color={'white'}>
+      <Flex bg={'var(--background)'} color={'var(--font-color)'}>
         <Text p={'0.7em 0 0 5%'}>Select genre</Text>
         <Select
           onChange={handleChangeSelectedGenre}
@@ -49,7 +49,7 @@ export const Filter = ({
           {listOfGenres.map((genre) => {
             return (
               <option
-                style={{ color: 'white', background: '#bd5c4b' }}
+                style={{ color: 'var(--font-color)', background: '#bd5c4b' }}
                 key={genre.id}
                 value={genre.id}
               >
@@ -69,7 +69,7 @@ export const Filter = ({
           {listOfPlatforms.map((platform) => {
             return (
               <option
-                style={{ color: 'white', background: '#bd5c4b' }}
+                style={{ color: 'var(--font-color)', background: '#bd5c4b' }}
                 key={platform.id}
                 value={platform.id}
               >

@@ -18,18 +18,18 @@ import {
   getPaginationPageWithRequestedQueryParamsSuccess,
   getSearchedGames,
   getSearchedGamesError,
-  getSearchedGamesSuccess,
+  getSearchedGamesSuccess
 } from './mainSlice';
 
 const BASE_URL = 'https://api.rawg.io/api/';
+const API_KEY = process.env.REACT_APP_RAWG_API_KEY;
 
-function* workFetchGames(action) {
+function* workFetchGames({ payload: page }) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games?key=58e43edf81094db9b034a89c52461039&page=${action.payload}`,
+    baseURL: `${BASE_URL}games?key=${API_KEY}&page=${page}`
   });
   try {
     const gamesFetch = yield call(() => axiosFormatted.get());
-    console.log(gamesFetch.data);
     yield put(getGamesSuccess(gamesFetch.data));
   } catch (error) {
     yield put(getGamesError(error));
@@ -38,11 +38,10 @@ function* workFetchGames(action) {
 
 function* workFetchGameDetails(action) {
   const axiosFormatted = axios.create({
-    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=58e43edf81094db9b034a89c52461039`,
+    baseURL: `${BASE_URL}games/${action.payload.gameID}?key=${API_KEY}`
   });
   try {
     const gamePageFetch = yield call(() => axiosFormatted.get());
-    console.log(gamePageFetch.data);
     yield put(getGameDetailsSuccess(gamePageFetch.data));
   } catch (error) {
     yield put(getGameDetailsError(error));
@@ -51,7 +50,7 @@ function* workFetchGameDetails(action) {
 
 function* workFetchGamesWithFilter(action) {
   const params = {
-    key: '58e43edf81094db9b034a89c52461039',
+    key: API_KEY
   };
 
   if (action.payload.selectedGenre === '') {
@@ -81,8 +80,6 @@ function* workFetchGamesWithFilter(action) {
     const gamesWithFilterFetch = yield call(() =>
       axios.get('https://api.rawg.io/api/games', { params })
     );
-    console.log(gamesWithFilterFetch.data);
-    console.log('RESPONSE', gamesWithFilterFetch.request.responseURL);
     yield put(
       getGamesWithFilterSuccess(
         gamesWithFilterFetch.data,
@@ -94,13 +91,12 @@ function* workFetchGamesWithFilter(action) {
   }
 }
 
-function* workFetchLastRequestedPage(action) {
+function* workFetchLastRequestedPage({ payload: lastRequestURL }) {
   const axiosFormatted = axios.create({
-    baseURL: `${action.payload}`,
+    baseURL: `${lastRequestURL}`
   });
   try {
     const lastPageFetch = yield call(() => axiosFormatted.get());
-    console.log(lastPageFetch.data);
     yield put(getLastRequestedPageSuccess(lastPageFetch.data));
   } catch (error) {
     yield put(getLastRequestedPageError(error));
@@ -109,15 +105,12 @@ function* workFetchLastRequestedPage(action) {
 
 function* workFetchPaginationPage(action) {
   const params = {
-    page: action.payload.page,
+    page: action.payload.page
   };
   try {
     const paginationPageFetch = yield call(() =>
       axios.get(`${action.payload.paginationPageRequestURL}`, { params })
     );
-    /*try {
-      const paginationPageFetch = yield call(() => axiosFormatted.get());*/
-    console.log(paginationPageFetch.data);
     yield put(
       getPaginationPageWithRequestedQueryParamsSuccess(
         paginationPageFetch.data,
@@ -129,21 +122,18 @@ function* workFetchPaginationPage(action) {
   }
 }
 
-function* workFetchSearchedGames(action) {
+function* workFetchSearchedGames({ payload: inputValue }) {
   const params = {
-    key: '58e43edf81094db9b034a89c52461039',
-    search: action.payload,
+    key: API_KEY,
+    search: inputValue,
     search_precise: true,
     search_exact: true,
-    ordering: 'rating',
+    ordering: 'rating'
   };
   try {
     const searchedGamesFetch = yield call(() =>
       axios.get('https://api.rawg.io/api/games', { params })
     );
-    /*try {
-      const paginationPageFetch = yield call(() => axiosFormatted.get());*/
-    console.log(searchedGamesFetch.data);
     yield put(
       getSearchedGamesSuccess(
         searchedGamesFetch.data,
@@ -165,7 +155,7 @@ function* gamesSaga() {
       getPaginationPageWithRequestedQueryParams,
       workFetchPaginationPage
     ),
-    yield takeEvery(getSearchedGames, workFetchSearchedGames),
+    yield takeEvery(getSearchedGames, workFetchSearchedGames)
   ]);
 }
 
