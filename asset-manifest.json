@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/gamesearcher/static/css/main.b8c63e92.css",
+    "main.js": "/gamesearcher/static/js/main.9a0a4a57.js",
+    "static/media/kratos.jpg": "/gamesearcher/static/media/kratos.62f7ee48fc080a6f25f7.jpg",
+    "static/media/arrowLeft.svg": "/gamesearcher/static/media/arrowLeft.796e71f3967fca7120ee56a63aa60e38.svg",
+    "static/media/arrowRight.svg": "/gamesearcher/static/media/arrowRight.04b914572596424d32580a5cac154a25.svg",
+    "index.html": "/gamesearcher/index.html",
+    "static/media/star.svg": "/gamesearcher/static/media/star.54c350b2d04f49022ed9f25f036e8b60.svg",
+    "static/media/gamepad.svg": "/gamesearcher/static/media/gamepad.353e81545df072f5c38704bcea02e13f.svg",
+    "main.b8c63e92.css.map": "/gamesearcher/static/css/main.b8c63e92.css.map",
+    "main.9a0a4a57.js.map": "/gamesearcher/static/js/main.9a0a4a57.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8c63e92.css",
+    "static/js/main.9a0a4a57.js"
+  ]
+}
