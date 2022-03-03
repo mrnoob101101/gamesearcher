@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/mrnoob101101.github.io.gamesearcher/static/css/main.b8c63e92.css",
-    "main.js": "/mrnoob101101.github.io.gamesearcher/static/js/main.0dc3e56b.js",
-    "static/media/kratos.jpg": "/mrnoob101101.github.io.gamesearcher/static/media/kratos.62f7ee48fc080a6f25f7.jpg",
-    "static/media/arrowLeft.svg": "/mrnoob101101.github.io.gamesearcher/static/media/arrowLeft.796e71f3967fca7120ee56a63aa60e38.svg",
-    "static/media/arrowRight.svg": "/mrnoob101101.github.io.gamesearcher/static/media/arrowRight.04b914572596424d32580a5cac154a25.svg",
-    "index.html": "/mrnoob101101.github.io.gamesearcher/index.html",
-    "static/media/star.svg": "/mrnoob101101.github.io.gamesearcher/static/media/star.54c350b2d04f49022ed9f25f036e8b60.svg",
-    "static/media/gamepad.svg": "/mrnoob101101.github.io.gamesearcher/static/media/gamepad.353e81545df072f5c38704bcea02e13f.svg",
-    "main.b8c63e92.css.map": "/mrnoob101101.github.io.gamesearcher/static/css/main.b8c63e92.css.map",
-    "main.0dc3e56b.js.map": "/mrnoob101101.github.io.gamesearcher/static/js/main.0dc3e56b.js.map"
+    "main.css": "/static/css/main.b8c63e92.css",
+    "main.js": "/static/js/main.a6fd82eb.js",
+    "static/media/kratos.jpg": "/static/media/kratos.62f7ee48fc080a6f25f7.jpg",
+    "static/media/arrowLeft.svg": "/static/media/arrowLeft.796e71f3967fca7120ee56a63aa60e38.svg",
+    "static/media/arrowRight.svg": "/static/media/arrowRight.04b914572596424d32580a5cac154a25.svg",
+    "index.html": "/index.html",
+    "static/media/star.svg": "/static/media/star.54c350b2d04f49022ed9f25f036e8b60.svg",
+    "static/media/gamepad.svg": "/static/media/gamepad.353e81545df072f5c38704bcea02e13f.svg",
+    "main.b8c63e92.css.map": "/static/css/main.b8c63e92.css.map",
+    "main.a6fd82eb.js.map": "/static/js/main.a6fd82eb.js.map"
   },
   "entrypoints": [
     "static/css/main.b8c63e92.css",
-    "static/js/main.0dc3e56b.js"
+    "static/js/main.a6fd82eb.js"
   ]
 }
